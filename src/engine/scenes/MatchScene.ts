@@ -1,7 +1,7 @@
 import { Scene } from "phaser";
 import { Board } from "../entities/Board";
-import { Tetramino } from '../entities/Tetramino';
-import store from '@/store'
+import { Tetramino } from "../entities/Tetramino";
+import store from "@/store";
 
 export class MatchScene extends Scene {
   private board: Board;
@@ -22,16 +22,16 @@ export class MatchScene extends Scene {
   }
 
   create() {
-    this.setupBoard()
+    this.setupBoard();
     // @ts-ignore
-    this.board.drawTetramino(store.state.game.currentTetramino)
-    this.setupControls()
+    this.board.drawTetramino(store.state.game.currentTetramino);
+    this.setupControls();
   }
 
-  private setupBoard () {
+  private setupBoard() {
     const background = this.add.image(400, 300, "background");
     this.board = new Board({
-      numberOfBlocks: [10, 20],
+      numberOfBlocks: [10, 7],
       scene: this
     });
     background.setPosition(
@@ -40,21 +40,25 @@ export class MatchScene extends Scene {
     );
   }
 
-  private setupControls () {
-    const [numberOfXBlocks] = this.board.options.numberOfBlocks
-    this.input.keyboard.on('keydown_LEFT', () => {
-      const lowestX = store.state.game.currentXSelection + store.state.game.currentTetramino.getLowestX()
+  private setupControls() {
+    const gameState = store.state.game;
+    this.input.keyboard.on("keydown_LEFT", () => {
+      const lowestX =
+        gameState.currentXSelection + gameState.currentTetramino.getLowestX();
       if (lowestX <= 0) {
-        return
+        return;
       }
-      store.commit('game/moveX', -1)
-    })
-    this.input.keyboard.on('keydown_RIGHT', () => {
-      const highestX = store.state.game.currentXSelection + store.state.game.currentTetramino.getHighestX()
+      store.commit("game/moveX", -1);
+    });
+
+    const [numberOfXBlocks] = this.board.options.numberOfBlocks;
+    this.input.keyboard.on("keydown_RIGHT", () => {
+      const highestX =
+        gameState.currentXSelection + gameState.currentTetramino.getHighestX();
       if (highestX >= numberOfXBlocks - 1) {
-        return
+        return;
       }
-      store.commit('game/moveX', 1)
-    })
+      store.commit("game/moveX", 1);
+    });
   }
 }
