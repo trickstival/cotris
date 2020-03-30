@@ -31,7 +31,7 @@ export class MatchScene extends Scene {
   private setupBoard() {
     const background = this.add.image(400, 300, "background");
     this.board = new Board({
-      numberOfBlocks: [10, 7],
+      numberOfBlocks: [10, 20],
       scene: this
     });
     background.setPosition(

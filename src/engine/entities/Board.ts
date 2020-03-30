@@ -26,7 +26,7 @@ export class Board {
     this.drawBoard();
     this.setupStoreWatchers();
     this.gravityMachine = new GravityMachine({
-      runAtEach: 1000,
+      runAtEach: 500,
       board: this
     });
     this.gravityMachine.start();
