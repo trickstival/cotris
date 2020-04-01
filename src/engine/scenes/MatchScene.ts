@@ -56,10 +56,8 @@ export class MatchScene extends Scene {
 
   private setupBoard() {
     const background = this.add.image(400, 300, "background");
-    if (this.sys.canvas.width > 1000) {
-      background.scaleX = this.sys.canvas.width / background.width;
-      background.scaleY = this.sys.canvas.height / background.height;
-    }
+    background.scaleX = this.sys.canvas.width / background.width;
+    background.scaleY = this.sys.canvas.height / background.height;
 
     this.board = new Board({
       numberOfBlocks: [10, 10],
