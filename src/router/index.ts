@@ -15,7 +15,7 @@ const routes = [
     name: "Game",
     component: () => import("../views/Game.vue"),
     meta: {
-      title: 'Cotris - Game'
+      title: "Cotris - Game"
     }
   },
   {
