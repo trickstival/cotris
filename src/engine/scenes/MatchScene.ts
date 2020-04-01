@@ -43,22 +43,11 @@ export class MatchScene extends Scene {
   private setupControls() {
     const gameState = store.state.game;
     this.input.keyboard.on("keydown_LEFT", () => {
-      const lowestX =
-        gameState.currentXSelection + gameState.currentTetramino.getLowestX();
-      if (lowestX <= 0) {
-        return;
-      }
-      store.commit("game/moveX", -1);
+      store.dispatch('game/moveLeft')
     });
 
-    const [numberOfXBlocks] = this.board.options.numberOfBlocks;
     this.input.keyboard.on("keydown_RIGHT", () => {
-      const highestX =
-        gameState.currentXSelection + gameState.currentTetramino.getHighestX();
-      if (highestX >= numberOfXBlocks - 1) {
-        return;
-      }
-      store.commit("game/moveX", 1);
+      store.dispatch('game/moveRight')
     });
   }
 }

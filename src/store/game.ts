@@ -75,6 +75,22 @@ export const game: Module<
       state.currentTetramino = state.nextTetramino;
       state.nextTetramino = Tetramino.getRandomTetramino();
       state.currentYSelection = nextY;
+    },
+    moveLeft ({ commit, state }) {
+      const lowestX =
+        state.currentXSelection + state.currentTetramino.getLowestX();
+      if (lowestX <= 0) {
+        return;
+      }
+      commit("moveX", -1);
+    },
+    moveRight ({ commit, state }) {
+      const highestX =
+        state.currentXSelection + state.currentTetramino.getHighestX();
+      if (highestX >= state.board.options.numberOfBlocks[0] - 1) {
+        return;
+      }
+      commit("moveX", 1);
     }
   }
 };

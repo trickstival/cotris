@@ -22,11 +22,12 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapState } from "vuex";
+import Vue from "vue";
 import GameOver from "./GameOver";
 
-export default {
+export default Vue.extend({
   components: {
     GameOver
   },
@@ -34,13 +35,20 @@ export default {
     ...mapState("game", ["score", "level", "isDead"])
   },
   methods: {
-    onClickGui() {
+    onClickGui(event: MouseEvent) {
       if (this.isDead) {
         this.$store.commit("game/restart");
+        return;
       }
+
+      const elRect = this.$el.getBoundingClientRect();
+      console.log(event.x - elRect.x, elRect.width);
+      this.$store.dispatch(
+        "game/move" + (event.x - elRect.x > elRect.width / 2 ? "Right" : "Left")
+      );
     }
   }
-};
+});
 </script>
 
 <style lang="scss" scoped>
