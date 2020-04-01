@@ -5,7 +5,7 @@ import { Board } from "@/engine/entities/Board";
 
 const initialTetramino = Tetramino.getRandomTetramino()
 
-const gameState = () => ({
+export const gameState = () => ({
   score: 0,
   level: 0,
   currentGoal: 0,

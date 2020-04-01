@@ -1,10 +1,14 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { game } from "./game";
+import { game, gameState } from "./game";
 
 Vue.use(Vuex);
 
-export const rootState = () => ({});
+interface RootState {
+  game: ReturnType<typeof gameState>
+}
+
+export const rootState = () => ({} as RootState);
 
 export default new Vuex.Store({
   state: rootState,
