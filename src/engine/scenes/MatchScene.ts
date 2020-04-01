@@ -27,38 +27,37 @@ export class MatchScene extends Scene {
     // @ts-ignore
     this.board.drawTetramino(store.state.game.currentTetramino);
     this.setupControls();
-    this.setupTimer()
+    this.setupTimer();
   }
 
-  private setupTimer () {
+  private setupTimer() {
     this.timer = this.time.addEvent({
       callback: () => {
-        store.commit('game/newSecond')
+        store.commit("game/newSecond");
       },
       loop: true,
       delay: 1000,
       paused: true
-    })
+    });
 
     const startTimer = () => {
-      this.timer.paused = false
-    }
+      this.timer.paused = false;
+    };
 
-    store.watch(
-      state => state.game.hasStarted,
-      startTimer
-    )
+    store.watch(state => state.game.hasStarted, startTimer);
 
     store.watch(
       state => state.game.isDead,
-      (isDead) => {
-        this.timer.paused = isDead
+      isDead => {
+        this.timer.paused = isDead;
       }
-    )
+    );
   }
 
   private setupBoard() {
     const background = this.add.image(400, 300, "background");
+    background.scaleX = this.sys.canvas.width / background.width;
+    background.scaleY = this.sys.canvas.height / background.height;
     this.board = new Board({
       numberOfBlocks: [10, 10],
       scene: this

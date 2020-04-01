@@ -27,7 +27,7 @@ export const game: Module<
   state: gameState,
   mutations: {
     newSecond(state) {
-      state.seconds++
+      state.seconds++;
     },
     increaseScore(state, by: number) {
       state.score += by;
@@ -51,7 +51,7 @@ export const game: Module<
       const initialTetramino = Tetramino.getRandomTetramino();
       state.score = 0;
       state.level = 1;
-      state.seconds = 0
+      state.seconds = 0;
       state.currentGoal = 0;
       state.currentXSelection = Math.round(
         state.board.options.numberOfBlocks[0] / 2
@@ -79,7 +79,7 @@ export const game: Module<
       }
 
       const nextY = -state.nextTetramino.getLowestY();
-      state.score += state.currentTetramino.currentPose.length
+      state.score += state.currentTetramino.currentPose.length;
       if (
         state.board.conflicts(state.nextTetramino, {
           x: state.currentXSelection,
