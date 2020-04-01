@@ -25,7 +25,7 @@
 <script lang="ts">
 import { mapState } from "vuex";
 import Vue from "vue";
-import GameOver from "./GameOver";
+import GameOver from "./GameOver.vue";
 
 export default Vue.extend({
   components: {
