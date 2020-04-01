@@ -1,5 +1,4 @@
 import { Tetramino } from "./entities/Tetramino";
-import tetraminos from "./enums/tetraminos";
 import store from "@/store";
 import { Board } from "./entities/Board";
 import { BoardBlock } from "./entities/BoardBlock";
@@ -17,29 +16,34 @@ export class GravityMachine {
     this.board = options.board || gameState.board;
   }
 
-  private runner = -1;
+  private timer: Phaser.Time.TimerEvent
 
   start() {
     const { runAtEach } = this.options;
-    this.runner = setInterval(() => {
-      const currentTetramino: Tetramino = gameState.currentTetramino;
-      const highestY =
-        gameState.currentYSelection -
-        currentTetramino.getLowestY() +
-        currentTetramino.getHighestY();
-      const blockBeneath: BoardBlock = this.board.getBlock(
-        gameState.currentXSelection,
-        highestY + 1
-      );
-      if (!blockBeneath || blockBeneath.isFilled) {
-        store.dispatch("game/getNextTetramino");
-        return;
+    this.timer = this.board.scene.time.addEvent({ 
+      loop: true,
+      delay: runAtEach,
+      callback: () => {
+        if (gameState.isDead) {
+          this.stop()
+        }
+        const currentTetramino: Tetramino = gameState.currentTetramino;
+        const highestY =
+          gameState.currentYSelection + currentTetramino.getHighestY();
+        const blockBeneath: BoardBlock = this.board.getBlock(
+          gameState.currentXSelection,
+          highestY + 1
+        );
+        if (!blockBeneath || blockBeneath.isFilled) {
+          store.dispatch("game/getNextTetramino");
+          return;
+        }
+        store.commit("game/dropY");
       }
-      store.commit("game/dropY");
-    }, runAtEach);
+    })
   }
 
   stop() {
-    clearInterval(this.runner);
+    this.timer.paused = true
   }
 }

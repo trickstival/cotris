@@ -15,7 +15,7 @@ interface DrawTetraminoOptions {
 }
 
 export class Board {
-  private scene: Scene;
+  scene: Scene;
   private boardBlocks: BoardBlock[] = [];
   private gravityMachine: GravityMachine;
 
@@ -79,10 +79,19 @@ export class Board {
       state => state.game.currentYSelection,
       (y, oldY) => {
         const currentTetramino: Tetramino = store.state.game.currentTetramino;
-        this.clearTetramino(currentTetramino, { y: y ? oldY : y });
+        this.clearTetramino(currentTetramino, { y: y > oldY ? oldY : y });
         this.drawTetramino(currentTetramino);
       }
     );
+  }
+
+  conflicts (tetramino: Tetramino, { x, y }: { x: number, y: number }) {
+    for (const [relativeX, relativeY] of tetramino.currentPose) {
+      if (this.getBlock(x + relativeX, y + relativeY).isFilled) {
+        return true
+      }
+    }
+    return false
   }
 
   getBlock(x: number, y: number) {
@@ -90,8 +99,13 @@ export class Board {
     return this.boardBlocks[y * numberOfBlocksX + x];
   }
 
+  clear () {
+    for (const block of this.boardBlocks) {
+      block.clearBlock()
+    }
+  }
+
   clearTetramino(tetramino: Tetramino, options?: { x?: number; y?: number }) {
-    const lowestY = tetramino.getLowestY();
     const {
       x = store.state.game.currentXSelection,
       y = store.state.game.currentYSelection
@@ -99,22 +113,23 @@ export class Board {
 
     for (const [relativeX, relativeY] of tetramino.currentPose) {
       const newX = x + relativeX;
-      // TODO interpret gravity machine
-      const newY = relativeY - lowestY + y;
+      const newY = relativeY + y;
       this.getBlock(newX, newY).clearBlock();
     }
   }
 
   drawTetramino(tetramino: Tetramino, options?: DrawTetraminoOptions) {
-    const lowestY = tetramino.getLowestY();
-    const { x = store.state.game.currentXSelection, color = 0xff0000 } =
-      options || {};
+    const { color = 0xff0000 } = options || {};
+    const x = store.state.game.currentXSelection
+    const y = store.state.game.currentYSelection
 
     for (const [relativeX, relativeY] of tetramino.currentPose) {
       const newX = x + relativeX;
-      // TODO interpret gravity machine
-      const newY = relativeY - lowestY + store.state.game.currentYSelection;
-      this.getBlock(newX, newY).fillWith(color);
+      const newY = y + relativeY
+      const block = this.getBlock(newX, newY)
+      if (!block.isFilled) {
+        block.fillWith(color);
+      }
     }
   }
 }
