@@ -79,6 +79,7 @@ export const game: Module<
       }
 
       const nextY = -state.nextTetramino.getLowestY();
+      state.score += state.currentTetramino.currentPose.length
       if (
         state.board.conflicts(state.nextTetramino, {
           x: state.currentXSelection,
@@ -89,7 +90,6 @@ export const game: Module<
         return;
       }
 
-      state.score += state.currentTetramino.currentPose.length
       state.currentTetramino = state.nextTetramino;
       state.nextTetramino = Tetramino.getRandomTetramino();
       state.currentYSelection = nextY;
