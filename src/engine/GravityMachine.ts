@@ -16,7 +16,7 @@ export class GravityMachine {
     this.board = options.board || gameState.board;
   }
 
-  private timer: Phaser.Time.TimerEvent
+  private timer: Phaser.Time.TimerEvent;
 
   start() {
     const { runAtEach } = this.options;
@@ -37,25 +37,25 @@ export class GravityMachine {
         }
         store.commit("game/dropY");
       }
-    })
+    });
 
     store.watch(
       state => state.game.isDead,
       isDead => {
         if (isDead) {
-          this.stop()
+          this.stop();
         } else {
-          this.resume()
+          this.resume();
         }
       }
-    )
+    );
   }
 
-  resume () {
-    this.timer.paused = false
+  resume() {
+    this.timer.paused = false;
   }
 
   stop() {
-    this.timer.paused = true
+    this.timer.paused = true;
   }
 }

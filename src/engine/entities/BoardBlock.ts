@@ -16,7 +16,7 @@ export class BoardBlock extends Phaser.GameObjects.Graphics {
 
   private draw() {
     const { x, y, size, borderColor } = this.options;
-    this.clear()
+    this.clear();
     this.beginPath()
       .lineStyle(2, borderColor)
       .fillStyle(this.options.color)

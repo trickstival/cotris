@@ -1,8 +1,8 @@
 <template>
-  <section class="game-over">
-    <h1 class="title">
-      Game Over!
-    </h1>
+  <section class="new-game">
+    <h1>Cotris</h1>
+    <br />
+    New Game
   </section>
 </template>
 
@@ -10,8 +10,8 @@
 export default {};
 </script>
 
-<style lang="scss" scoped>
-.game-over {
+<style lang="scss">
+.new-game {
   background-color: rgba(200, 200, 200, 0.8);
   padding: 10px;
   width: 600px;
@@ -19,6 +19,7 @@ export default {};
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   cursor: pointer;
 }
 </style>

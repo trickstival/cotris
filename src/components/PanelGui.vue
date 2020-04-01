@@ -18,6 +18,7 @@
         </div>
       </div>
     </header>
+    <new-game v-if="!hasStarted"></new-game>
     <game-over v-if="isDead" class="game-over"></game-over>
   </div>
 </template>
@@ -26,16 +27,23 @@
 import { mapState } from "vuex";
 import Vue from "vue";
 import GameOver from "./GameOver.vue";
+import NewGame from "./NewGame.vue";
 
 export default Vue.extend({
   components: {
-    GameOver
+    GameOver,
+    NewGame
   },
   computed: {
-    ...mapState("game", ["score", "level", "isDead"])
+    ...mapState("game", ["score", "level", "isDead", "hasStarted"])
   },
   methods: {
     onClickGui(event: MouseEvent) {
+      if (!this.hasStarted) {
+        this.$store.commit("game/start");
+        return;
+      }
+
       if (this.isDead) {
         this.$store.commit("game/restart");
         return;

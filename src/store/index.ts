@@ -5,7 +5,7 @@ import { game, gameState } from "./game";
 Vue.use(Vuex);
 
 interface RootState {
-  game: ReturnType<typeof gameState>
+  game: ReturnType<typeof gameState>;
 }
 
 export const rootState = () => ({} as RootState);

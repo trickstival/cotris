@@ -30,7 +30,7 @@ export default {
 }
 .game-gui-container {
   position: relative;
-  width: 900px;
+  width: 100%;
   font-family: TheRustic;
   text-transform: uppercase;
 }

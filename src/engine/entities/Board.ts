@@ -29,7 +29,14 @@ export class Board {
       runAtEach: 500,
       board: this
     });
-    this.gravityMachine.start();
+    store.watch(
+      state => state.game.hasStarted,
+      hasStarted => {
+        if (hasStarted) {
+          this.gravityMachine.start();
+        }
+      }
+    );
   }
 
   private addBackground() {
@@ -85,13 +92,13 @@ export class Board {
     );
   }
 
-  conflicts (tetramino: Tetramino, { x, y }: { x: number, y: number }) {
+  conflicts(tetramino: Tetramino, { x, y }: { x: number; y: number }) {
     for (const [relativeX, relativeY] of tetramino.currentPose) {
       if (this.getBlock(x + relativeX, y + relativeY).isFilled) {
-        return true
+        return true;
       }
     }
-    return false
+    return false;
   }
 
   getBlock(x: number, y: number) {
@@ -99,9 +106,9 @@ export class Board {
     return this.boardBlocks[y * numberOfBlocksX + x];
   }
 
-  clear () {
+  clear() {
     for (const block of this.boardBlocks) {
-      block.clearBlock()
+      block.clearBlock();
     }
   }
 
@@ -120,13 +127,13 @@ export class Board {
 
   drawTetramino(tetramino: Tetramino, options?: DrawTetraminoOptions) {
     const { color = 0xff0000 } = options || {};
-    const x = store.state.game.currentXSelection
-    const y = store.state.game.currentYSelection
+    const x = store.state.game.currentXSelection;
+    const y = store.state.game.currentYSelection;
 
     for (const [relativeX, relativeY] of tetramino.currentPose) {
       const newX = x + relativeX;
-      const newY = y + relativeY
-      const block = this.getBlock(newX, newY)
+      const newY = y + relativeY;
+      const block = this.getBlock(newX, newY);
       if (!block.isFilled) {
         block.fillWith(color);
       }

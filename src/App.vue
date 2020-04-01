@@ -8,7 +8,8 @@
 * {
   box-sizing: border-box;
 }
-body {
+body,
+h1 {
   margin: 0;
 }
 #app {
