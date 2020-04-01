@@ -20,6 +20,5 @@ export class Game extends PhaserGame {
 
   destroy() {
     super.destroy(false);
-    console.log("morreu game");
   }
 }
