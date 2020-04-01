@@ -1,4 +1,6 @@
-# vintage-tetris
+# Cotris
+Cotris is a game inspired by tetris with different rules.
+There's only one color, and pieces can be merged horizontaly.
 
 ## Project setup
 ```
