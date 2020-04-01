@@ -39,6 +39,17 @@ export const game: Module<
     setBoard(state, board: Board) {
       state.board = board;
     },
+    restart (state) {
+      const initialTetramino = Tetramino.getRandomTetramino()
+      state.score = 0
+      state.level = 0
+      state.currentGoal = 0
+      state.currentXSelection = Math.round(state.board.options.numberOfBlocks[0] / 2)
+      state.currentYSelection = -initialTetramino.getLowestY()
+      state.nextTetramino = Tetramino.getRandomTetramino()
+      state.board.clear()
+      state.isDead = false
+    },
     die (state) {
       state.isDead = true
     }

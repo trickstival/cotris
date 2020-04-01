@@ -20,13 +20,10 @@ export class GravityMachine {
 
   start() {
     const { runAtEach } = this.options;
-    this.timer = this.board.scene.time.addEvent({ 
+    this.timer = this.board.scene.time.addEvent({
       loop: true,
       delay: runAtEach,
       callback: () => {
-        if (gameState.isDead) {
-          this.stop()
-        }
         const currentTetramino: Tetramino = gameState.currentTetramino;
         const highestY =
           gameState.currentYSelection + currentTetramino.getHighestY();
@@ -41,6 +38,21 @@ export class GravityMachine {
         store.commit("game/dropY");
       }
     })
+
+    store.watch(
+      state => state.game.isDead,
+      isDead => {
+        if (isDead) {
+          this.stop()
+        } else {
+          this.resume()
+        }
+      }
+    )
+  }
+
+  resume () {
+    this.timer.paused = false
   }
 
   stop() {
