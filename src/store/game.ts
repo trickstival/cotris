@@ -7,7 +7,7 @@ const initialTetramino = Tetramino.getRandomTetramino();
 
 export const gameState = () => ({
   score: 0,
-  level: 0,
+  level: 1,
   currentGoal: 0,
   currentXSelection: 3,
   currentYSelection: -initialTetramino.getLowestY(),
@@ -46,7 +46,7 @@ export const game: Module<
     restart(state) {
       const initialTetramino = Tetramino.getRandomTetramino();
       state.score = 0;
-      state.level = 0;
+      state.level = 1;
       state.currentGoal = 0;
       state.currentXSelection = Math.round(
         state.board.options.numberOfBlocks[0] / 2
@@ -83,6 +83,8 @@ export const game: Module<
         commit("die");
         return;
       }
+
+      state.score += state.currentTetramino.currentPose.length
       state.currentTetramino = state.nextTetramino;
       state.nextTetramino = Tetramino.getRandomTetramino();
       state.currentYSelection = nextY;
