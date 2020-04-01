@@ -4,6 +4,9 @@ module.exports = {
     themeColor: "#3c2c17",
     msTileColor: "#000000",
     appleMobileWebAppCapable: "yes",
-    appleMobileWebAppStatusBarStyle: "black"
+    appleMobileWebAppStatusBarStyle: "black",
+    manifestOptions: {
+      start_url: "/game"
+    }
   }
 };
