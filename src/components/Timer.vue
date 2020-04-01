@@ -15,7 +15,7 @@ export default {
     formattedTime() {
       date.setHours(0);
       date.setSeconds(this.seconds);
-      const hours = String(date.getHours()).padStart(2, "0");
+      const hours = String(date.getMinutes()).padStart(2, "0");
       const seconds = String(date.getSeconds()).padStart(2, "0");
       return `${hours}:${seconds}`;
     }
