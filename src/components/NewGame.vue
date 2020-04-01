@@ -22,4 +22,10 @@ export default {};
   flex-direction: column;
   cursor: pointer;
 }
+
+@media screen and (max-width: 768px) {
+  .new-game {
+    height: 100%;
+  }
+}
 </style>

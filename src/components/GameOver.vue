@@ -21,4 +21,10 @@ export default {};
   justify-content: center;
   cursor: pointer;
 }
+
+@media screen and (max-width: 768px) {
+  .game-over {
+    height: 100%;
+  }
+}
 </style>

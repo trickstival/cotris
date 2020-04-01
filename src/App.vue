@@ -4,6 +4,20 @@
   </div>
 </template>
 
+<script>
+export default {
+  watch: {
+    $route(to) {
+      document.title = to.meta.title || "Cotris";
+      if (to.meta.icon) {
+        const link = document.querySelector("[rel='icon']");
+        link.setAttribute("href", to.meta.icon);
+      }
+    }
+  }
+};
+</script>
+
 <style lang="scss">
 * {
   box-sizing: border-box;

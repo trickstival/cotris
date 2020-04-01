@@ -13,7 +13,10 @@ const routes = [
   {
     path: "/game",
     name: "Game",
-    component: () => import("../views/Game.vue")
+    component: () => import("../views/Game.vue"),
+    meta: {
+      title: 'Cotris - Game'
+    }
   },
   {
     path: "/about",
