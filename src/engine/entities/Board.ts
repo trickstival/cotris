@@ -126,7 +126,7 @@ export class Board {
   }
 
   drawTetramino(tetramino: Tetramino, options?: DrawTetraminoOptions) {
-    const { color = 0xff0000 } = options || {};
+    const { color = 0x8a6536 } = options || {};
     const x = store.state.game.currentXSelection;
     const y = store.state.game.currentYSelection;
 
