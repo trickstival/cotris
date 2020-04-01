@@ -42,7 +42,6 @@ export default Vue.extend({
       }
 
       const elRect = this.$el.getBoundingClientRect();
-      console.log(event.x - elRect.x, elRect.width);
       this.$store.dispatch(
         "game/move" + (event.x - elRect.x > elRect.width / 2 ? "Right" : "Left")
       );
