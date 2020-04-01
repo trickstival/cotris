@@ -46,6 +46,7 @@ export const game: Module<
     },
     start(state) {
       state.hasStarted = true;
+      state.board.boardGroup.setAlpha(1)
     },
     restart(state) {
       const initialTetramino = Tetramino.getRandomTetramino();
@@ -59,6 +60,7 @@ export const game: Module<
       state.currentYSelection = -initialTetramino.getLowestY();
       state.nextTetramino = Tetramino.getRandomTetramino();
       state.board.clear();
+      state.board.boardGroup.setAlpha(1)
       state.isDead = false;
     },
     die(state) {

@@ -1,18 +1,30 @@
 <template>
   <section class="new-game">
-    <h1>Cotris</h1>
-    <br />
-    New Game
+    <h1>The Cotris Game</h1>
+    <play-button @click="play" class="play-button" />
+    <high-scores class="high-scores" />
   </section>
 </template>
 
 <script>
-export default {};
+import HighScores from "./HighScores";
+import PlayButton from "./ui/PlayButton";
+
+export default {
+  components: {
+    HighScores,
+    PlayButton
+  },
+  methods: {
+    play() {
+      this.$store.commit("game/start");
+    }
+  }
+};
 </script>
 
 <style lang="scss">
 .new-game {
-  background-color: rgba(200, 200, 200, 0.8);
   padding: 10px;
   width: 600px;
   height: 600px;
@@ -20,12 +32,21 @@ export default {};
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  cursor: pointer;
+}
+
+.high-scores,
+.play-button {
+  margin-top: 25px;
 }
 
 @media screen and (max-width: 768px) {
   .new-game {
     height: 100%;
+  }
+
+  .high-scores,
+  .play-button {
+    margin-top: 7px;
   }
 }
 </style>

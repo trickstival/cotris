@@ -19,7 +19,7 @@ export class MatchScene extends Scene {
   }
 
   preload() {
-    this.load.image("background", "publicAssets/wood.jpg");
+    this.load.image("background", "publicAssets/wood.png");
   }
 
   create() {
@@ -56,12 +56,16 @@ export class MatchScene extends Scene {
 
   private setupBoard() {
     const background = this.add.image(400, 300, "background");
-    background.scaleX = this.sys.canvas.width / background.width;
-    background.scaleY = this.sys.canvas.height / background.height;
+    if (this.sys.canvas.width > 1000) {
+      background.scaleX = this.sys.canvas.width / background.width;
+      background.scaleY = this.sys.canvas.height / background.height;
+    }
+
     this.board = new Board({
       numberOfBlocks: [10, 10],
       scene: this
     });
+    this.board.boardGroup.setAlpha(0)
     background.setPosition(
       this.game.canvas.width / 2,
       this.game.canvas.height / 2

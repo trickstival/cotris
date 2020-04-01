@@ -28,6 +28,10 @@ export default {
   font-family: TheRustic;
   src: url("../assets/fonts/TheRustic.ttf");
 }
+@font-face {
+  font-family: AmericanCaptain;
+  src: url("../assets/fonts/AmericanCaptain.ttf");
+}
 .game-gui-container {
   position: relative;
   width: 100%;

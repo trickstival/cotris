@@ -17,6 +17,8 @@ interface DrawTetraminoOptions {
 export class Board {
   scene: Scene;
   private boardBlocks: BoardBlock[] = [];
+  private boardContainer: Phaser.GameObjects.Container
+  public boardGroup: Phaser.GameObjects.Group
   private gravityMachine: GravityMachine;
 
   constructor(public options: BoardOptions) {
@@ -65,11 +67,13 @@ export class Board {
           y: currentYPosition
         });
 
-        this.scene.add.existing(boardBlock);
-
         this.boardBlocks.push(boardBlock);
       }
     }
+    this.boardContainer = this.scene.add.container(0, 0, this.boardBlocks)
+    this.boardGroup = this.scene
+      .add
+      .group(this.boardBlocks)
   }
 
   private setupStoreWatchers() {

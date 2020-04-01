@@ -1,6 +1,6 @@
 <template>
   <div @click="onClickGui" class="panel-gui">
-    <new-game v-if="!hasStarted"></new-game>
+    <new-game v-if="!hasStarted" />
     <template v-else>
       <timer />
       <score />
@@ -30,10 +30,8 @@ export default Vue.extend({
   methods: {
     onClickGui(event: MouseEvent) {
       if (!this.hasStarted) {
-        this.$store.commit("game/start");
         return;
       }
-
       if (this.isDead) {
         this.$store.commit("game/restart");
         return;
