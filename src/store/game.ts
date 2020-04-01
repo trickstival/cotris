@@ -15,7 +15,8 @@ export const gameState = () => ({
   nextTetramino: Tetramino.getRandomTetramino(),
   board: (null as unknown) as Board,
   isDead: false,
-  hasStarted: false
+  hasStarted: false,
+  seconds: 0
 });
 
 export const game: Module<
@@ -25,6 +26,9 @@ export const game: Module<
   namespaced: true,
   state: gameState,
   mutations: {
+    newSecond(state) {
+      state.seconds++
+    },
     increaseScore(state, by: number) {
       state.score += by;
     },
@@ -47,6 +51,7 @@ export const game: Module<
       const initialTetramino = Tetramino.getRandomTetramino();
       state.score = 0;
       state.level = 1;
+      state.seconds = 0
       state.currentGoal = 0;
       state.currentXSelection = Math.round(
         state.board.options.numberOfBlocks[0] / 2

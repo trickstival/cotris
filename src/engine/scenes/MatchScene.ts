@@ -5,6 +5,7 @@ import store from "@/store";
 
 export class MatchScene extends Scene {
   private board: Board;
+  private timer: Phaser.Time.TimerEvent;
 
   constructor() {
     super({
@@ -26,6 +27,34 @@ export class MatchScene extends Scene {
     // @ts-ignore
     this.board.drawTetramino(store.state.game.currentTetramino);
     this.setupControls();
+    this.setupTimer()
+  }
+
+  private setupTimer () {
+    this.timer = this.time.addEvent({
+      callback: () => {
+        store.commit('game/newSecond')
+      },
+      loop: true,
+      delay: 1000,
+      paused: true
+    })
+
+    const startTimer = () => {
+      this.timer.paused = false
+    }
+
+    store.watch(
+      state => state.game.hasStarted,
+      startTimer
+    )
+
+    store.watch(
+      state => state.game.isDead,
+      (isDead) => {
+        this.timer.paused = isDead
+      }
+    )
   }
 
   private setupBoard() {

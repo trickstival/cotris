@@ -1,24 +1,10 @@
 <template>
   <div @click="onClickGui" class="panel-gui">
-    <header class="gui-header">
-      <div>
-        <div>
-          Score
-        </div>
-        <div>
-          {{ score }}
-        </div>
-      </div>
-      <div>
-        <div>
-          Level
-        </div>
-        <div>
-          {{ level }}
-        </div>
-      </div>
-    </header>
     <new-game v-if="!hasStarted"></new-game>
+    <template v-else>
+      <timer />
+      <score />
+    </template>
     <game-over v-if="isDead" class="game-over"></game-over>
   </div>
 </template>
@@ -28,14 +14,18 @@ import { mapState } from "vuex";
 import Vue from "vue";
 import GameOver from "./GameOver.vue";
 import NewGame from "./NewGame.vue";
+import Score from "./Score.vue";
+import Timer from "./Timer.vue";
 
 export default Vue.extend({
   components: {
     GameOver,
-    NewGame
+    NewGame,
+    Score,
+    Timer
   },
   computed: {
-    ...mapState("game", ["score", "level", "isDead", "hasStarted"])
+    ...mapState("game", ["isDead", "hasStarted"])
   },
   methods: {
     onClickGui(event: MouseEvent) {
@@ -59,18 +49,6 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.gui-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-  padding-top: 15px;
-  user-select: none;
-  -webkit-touch-callout: none;
-}
-
 .panel-gui {
   font-size: 40px;
   position: absolute;
