@@ -38,10 +38,14 @@ export const game: Module<
     getNextTetramino({ state, commit }) {
       state.currentYSelection = 0;
       const [boardWidth] = state.board.options.numberOfBlocks;
+      const boardNumOfPositions = boardWidth - 1
       const highestX = state.nextTetramino.getHighestX();
-
-      if (highestX + state.currentXSelection + 1 > boardWidth) {
-        commit('moveX', -highestX)
+      const lowestX = state.nextTetramino.getLowestX()
+      // Moving x when reach bounds and next tetramino exceeds board bounds
+      if (highestX + state.currentXSelection > boardNumOfPositions) {
+        commit("moveX", -highestX);
+      } else if (state.currentXSelection + lowestX < 0) {
+        commit("moveX", -lowestX)
       }
       state.currentTetramino = state.nextTetramino;
       state.nextTetramino = Tetramino.getRandomTetramino();
