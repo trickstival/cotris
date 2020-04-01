@@ -19,7 +19,7 @@ export class MatchScene extends Scene {
   }
 
   preload() {
-    this.load.image("background", "publicAssets/wood.png");
+    this.load.image("background", "publicAssets/wood.jpeg");
   }
 
   create() {
