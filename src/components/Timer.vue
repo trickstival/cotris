@@ -13,7 +13,7 @@ export default {
   computed: {
     ...mapState("game", ["seconds"]),
     formattedTime() {
-      date.setHours(0);
+      date.setMinutes(0);
       date.setSeconds(this.seconds);
       const hours = String(date.getMinutes()).padStart(2, "0");
       const seconds = String(date.getSeconds()).padStart(2, "0");
