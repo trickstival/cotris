@@ -22,21 +22,21 @@ export const score: Module<
       state.score += by;
     },
     resetScore(state) {
-      state.score = 0
+      state.score = 0;
     },
     setGoal(state, goal: number) {
       state.goal = goal;
-    },
+    }
   },
   actions: {
-    nextLevel ({ state, commit }) {
-      commit('game/restart', null, { root: true })
-      state.level++
+    nextLevel({ state, commit }) {
+      commit("game/restart", null, { root: true });
+      state.level++;
     },
-    resurrect ({ commit, state }) {
-      commit('resetScore')
-      state.level = 1
-      state.seconds = 0
+    resurrect({ commit, state }) {
+      commit("resetScore");
+      state.level = 1;
+      state.seconds = 0;
     }
   }
 };

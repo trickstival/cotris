@@ -2,7 +2,7 @@ import { Level } from "./entities/Level";
 import { Board } from "./entities/Board";
 import { Scene } from "phaser";
 import { getRandomInt } from "@/utils/math.utils";
-import store from '@/store';
+import store from "@/store";
 
 const MAX_BOARD_HEIGHT = 12;
 const MAX_BOARD_WIDTH = 10;
@@ -28,12 +28,12 @@ export class LevelGenerator {
   }
 
   private calcGoal(levelNumber: number) {
-    const goal =  20 * levelNumber + getRandomInt(0, 9);
+    const goal = 20 * levelNumber + getRandomInt(0, 9);
     store.commit("score/setGoal", goal);
   }
 
   private calcSpeed(levelNumber: number) {
-    return 500 - 100 * Math.log(levelNumber)
+    return 500 - 100 * Math.log(levelNumber);
   }
 
   next() {
@@ -43,7 +43,7 @@ export class LevelGenerator {
 
     const board = this.generateBoard();
     const number = store.state.score.level;
-    this.calcGoal(number)
+    this.calcGoal(number);
 
     this.currentLevel = new Level({
       board,

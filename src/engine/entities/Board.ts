@@ -2,7 +2,6 @@ import { Scene } from "phaser";
 import { BoardBlock } from "./BoardBlock";
 import { Tetramino } from "./Tetramino";
 import store from "@/store";
-import { GravityMachine } from "../GravityMachine";
 
 interface BoardOptions {
   numberOfBlocks: [number, number];
@@ -12,14 +11,15 @@ interface BoardOptions {
 interface DrawTetraminoOptions {
   x: number;
   color: number;
+  solidBlockColor: number;
 }
 
 export class Board {
   scene: Scene;
   private boardBlocks: BoardBlock[] = [];
   private boardContainer: Phaser.GameObjects.Container;
-  private background: Phaser.GameObjects.Rectangle
-  private unwatchers: Function[] = []
+  private background: Phaser.GameObjects.Rectangle;
+  private unwatchers: Function[] = [];
   public boardGroup: Phaser.GameObjects.Group;
 
   constructor(public options: BoardOptions) {
@@ -73,7 +73,7 @@ export class Board {
           this.drawTetramino(currentTetramino);
         }
       ),
-  
+
       store.watch(
         state => state.game.currentYSelection,
         (y, oldY) => {
@@ -82,7 +82,7 @@ export class Board {
           this.drawTetramino(currentTetramino);
         }
       )
-    )
+    );
   }
 
   conflicts(tetramino: Tetramino, { x, y }: { x: number; y: number }) {
@@ -119,26 +119,31 @@ export class Board {
   }
 
   drawTetramino(tetramino: Tetramino, options?: DrawTetraminoOptions) {
-    const { color = 0x8a6536 } = options || {};
+    const { color = 0x8a6536, solidBlockColor = 0x4f391d } = options || {};
     const x = store.state.game.currentXSelection;
     const y = store.state.game.currentYSelection;
+    const highestY = tetramino.getHighestY();
 
     for (const [relativeX, relativeY] of tetramino.currentPose) {
       const newX = x + relativeX;
       const newY = y + relativeY;
       const block = this.getBlock(newX, newY);
       if (!block.isFilled) {
-        block.fillWith(color);
+        if (relativeY === highestY && relativeX === 0) {
+          block.fillWith(solidBlockColor);
+        } else {
+          block.fillWith(color);
+        }
       }
     }
   }
 
-  destroy () {
-    this.boardGroup.destroy()
-    this.boardContainer.destroy()
-    this.background.destroy()
+  destroy() {
+    this.boardGroup.destroy();
+    this.boardContainer.destroy();
+    this.background.destroy();
     for (const unwatcher of this.unwatchers) {
-      unwatcher()
+      unwatcher();
     }
   }
 }

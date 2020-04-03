@@ -12,7 +12,7 @@ export const gameState = () => ({
   nextTetramino: Tetramino.getRandomTetramino(),
   board: (null as unknown) as Board,
   isDead: false,
-  hasStarted: false,
+  hasStarted: false
 });
 
 export const game: Module<
@@ -44,10 +44,10 @@ export const game: Module<
         state.board.options.numberOfBlocks[0] / 2
       );
       state.currentYSelection = -initialTetramino.getLowestY();
-      state.currentTetramino = initialTetramino
+      state.currentTetramino = initialTetramino;
       state.nextTetramino = Tetramino.getRandomTetramino();
       state.board.clear();
-      state.board.drawTetramino(state.currentTetramino)
+      state.board.drawTetramino(state.currentTetramino);
       state.board.boardGroup.setAlpha(1);
       state.isDead = false;
     },
@@ -58,7 +58,7 @@ export const game: Module<
   actions: {
     resurrect({ dispatch, commit }) {
       commit("restart");
-      dispatch('score/resurrect', null, { root: true })
+      dispatch("score/resurrect", null, { root: true });
     },
     getNextTetramino({ state, commit }) {
       const [boardWidth] = state.board.options.numberOfBlocks;

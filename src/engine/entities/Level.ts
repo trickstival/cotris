@@ -30,29 +30,29 @@ export class Level {
         state => state.game.hasStarted,
         hasStarted => {
           if (hasStarted) {
-            this.start()
+            this.start();
           }
         }
       ),
-  
+
       store.watch(
         state => state.score.score,
         score => {
           if (score >= store.state.score.goal) {
-              store.dispatch('score/nextLevel')
+            store.dispatch("score/nextLevel");
           }
         }
       )
     );
   }
 
-  start () {
+  start() {
     this.gravityMachine.start();
   }
 
   destroy() {
-    this.gravityMachine.destroy()
-    this.options.board.destroy()
+    this.gravityMachine.destroy();
+    this.options.board.destroy();
     for (const unwatcher of this.unwatchers) {
       unwatcher();
     }

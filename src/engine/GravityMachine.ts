@@ -60,7 +60,7 @@ export class GravityMachine {
   }
 
   destroy() {
-    this.pause()
-    this.timer.destroy()
+    this.pause();
+    this.timer.destroy();
   }
 }

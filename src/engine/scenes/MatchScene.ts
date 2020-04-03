@@ -69,10 +69,10 @@ export class MatchScene extends Scene {
     store.watch(
       state => state.score.level,
       () => {
-        this.levelGenerator.next()
-        this.levelGenerator.currentLevel.start()
+        this.levelGenerator.next();
+        this.levelGenerator.currentLevel.start();
       }
-    )
+    );
 
     this.board = this.levelGenerator.currentLevel.options.board;
     this.board.boardGroup.setAlpha(0);
