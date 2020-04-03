@@ -10,6 +10,14 @@
     </div>
     <div>
       <div>
+        Goal
+      </div>
+      <div>
+        {{ goal }}
+      </div>
+    </div>
+    <div>
+      <div>
         Level
       </div>
       <div>
@@ -23,7 +31,7 @@
 import { mapState } from "vuex";
 export default {
   computed: {
-    ...mapState("game", ["level", "score"])
+    ...mapState("score", ["level", "score", "goal"])
   }
 };
 </script>
@@ -36,7 +44,7 @@ export default {
   display: flex;
   justify-content: space-around;
   width: 100%;
-  padding-top: 30px;
+  padding-top: 15px;
   user-select: none;
   -webkit-touch-callout: none;
 }

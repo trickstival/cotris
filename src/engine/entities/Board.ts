@@ -19,7 +19,6 @@ export class Board {
   private boardBlocks: BoardBlock[] = [];
   private boardContainer: Phaser.GameObjects.Container
   public boardGroup: Phaser.GameObjects.Group
-  private gravityMachine: GravityMachine;
 
   constructor(public options: BoardOptions) {
     this.scene = options.scene;
@@ -27,18 +26,6 @@ export class Board {
     this.addBackground();
     this.drawBoard();
     this.setupStoreWatchers();
-    this.gravityMachine = new GravityMachine({
-      runAtEach: 500,
-      board: this
-    });
-    store.watch(
-      state => state.game.hasStarted,
-      hasStarted => {
-        if (hasStarted) {
-          this.gravityMachine.start();
-        }
-      }
-    );
   }
 
   private addBackground() {

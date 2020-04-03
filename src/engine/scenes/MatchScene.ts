@@ -2,10 +2,12 @@ import { Scene } from "phaser";
 import { Board } from "../entities/Board";
 import { Tetramino } from "../entities/Tetramino";
 import store from "@/store";
+import { LevelGenerator } from '../LevelGenerator';
 
 export class MatchScene extends Scene {
   private board: Board;
   private timer: Phaser.Time.TimerEvent;
+  private levelGenerator: LevelGenerator;
 
   constructor() {
     super({
@@ -59,10 +61,13 @@ export class MatchScene extends Scene {
     background.scaleX = this.sys.canvas.width / background.width;
     background.scaleY = this.sys.canvas.height / background.height;
 
-    this.board = new Board({
-      numberOfBlocks: [10, 10],
+    this.levelGenerator = new LevelGenerator({
       scene: this
-    });
+    })
+
+    this.levelGenerator.next()
+
+    this.board = this.levelGenerator.currentLevel.options.board
     this.board.boardGroup.setAlpha(0)
     background.setPosition(
       this.game.canvas.width / 2,

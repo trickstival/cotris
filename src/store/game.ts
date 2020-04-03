@@ -6,9 +6,6 @@ import { Board } from "@/engine/entities/Board";
 const initialTetramino = Tetramino.getRandomTetramino();
 
 export const gameState = () => ({
-  score: 0,
-  level: 1,
-  currentGoal: 0,
   currentXSelection: 3,
   currentYSelection: -initialTetramino.getLowestY(),
   currentTetramino: initialTetramino,
@@ -29,9 +26,6 @@ export const game: Module<
     newSecond(state) {
       state.seconds++;
     },
-    increaseScore(state, by: number) {
-      state.score += by;
-    },
     moveX(state, squares: 1 | -1) {
       if (state.isDead) {
         return;
@@ -50,10 +44,7 @@ export const game: Module<
     },
     restart(state) {
       const initialTetramino = Tetramino.getRandomTetramino();
-      state.score = 0;
-      state.level = 1;
       state.seconds = 0;
-      state.currentGoal = 0;
       state.currentXSelection = Math.round(
         state.board.options.numberOfBlocks[0] / 2
       );
@@ -68,6 +59,10 @@ export const game: Module<
     }
   },
   actions: {
+    restart ({ commit }) {
+      commit('restart')
+      commit('score/resetScore', null, { root: true })
+    },
     getNextTetramino({ state, commit }) {
       const [boardWidth] = state.board.options.numberOfBlocks;
       const boardNumOfPositions = boardWidth - 1;
@@ -81,7 +76,7 @@ export const game: Module<
       }
 
       const nextY = -state.nextTetramino.getLowestY();
-      state.score += state.currentTetramino.currentPose.length;
+      commit('score/increaseScore', state.currentTetramino.currentPose.length, { root: true })
       if (
         state.board.conflicts(state.nextTetramino, {
           x: state.currentXSelection,

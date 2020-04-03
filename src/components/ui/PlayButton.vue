@@ -17,6 +17,8 @@ export default {};
   height: $size;
   opacity: 0.7;
   cursor: pointer;
+  user-select: none;
+  outline: none;
   transition: transform 0.4s ease;
   &:hover {
     transform: scale(1.1);

@@ -33,7 +33,7 @@ export default Vue.extend({
         return;
       }
       if (this.isDead) {
-        this.$store.commit("game/restart");
+        this.$store.dispatch("game/restart");
         return;
       }
 
