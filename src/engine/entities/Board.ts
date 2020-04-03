@@ -114,7 +114,7 @@ export class Board {
     for (const [relativeX, relativeY] of tetramino.currentPose) {
       const newX = x + relativeX;
       const newY = relativeY + y;
-      this.getBlock(newX, newY).clearBlock();
+      this.getBlock(newX, newY)?.clearBlock();
     }
   }
 

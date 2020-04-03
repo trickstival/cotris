@@ -32,6 +32,10 @@ export class LevelGenerator {
     store.commit("score/setGoal", goal);
   }
 
+  private calcSpeed(levelNumber: number) {
+    return 500 - 100 * Math.log(levelNumber)
+  }
+
   next() {
     if (this.currentLevel) {
       this.currentLevel.destroy();
@@ -43,7 +47,7 @@ export class LevelGenerator {
 
     this.currentLevel = new Level({
       board,
-      speed: 500,
+      speed: this.calcSpeed(number),
       number
     });
   }
