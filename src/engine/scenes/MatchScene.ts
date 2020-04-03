@@ -2,7 +2,7 @@ import { Scene } from "phaser";
 import { Board } from "../entities/Board";
 import { Tetramino } from "../entities/Tetramino";
 import store from "@/store";
-import { LevelGenerator } from '../LevelGenerator';
+import { LevelGenerator } from "../LevelGenerator";
 
 export class MatchScene extends Scene {
   private board: Board;
@@ -35,7 +35,7 @@ export class MatchScene extends Scene {
   private setupTimer() {
     this.timer = this.time.addEvent({
       callback: () => {
-        store.commit("game/newSecond");
+        store.commit("score/newSecond");
       },
       loop: true,
       delay: 1000,
@@ -63,12 +63,19 @@ export class MatchScene extends Scene {
 
     this.levelGenerator = new LevelGenerator({
       scene: this
-    })
+    });
 
-    this.levelGenerator.next()
+    this.levelGenerator.next();
+    store.watch(
+      state => state.score.level,
+      () => {
+        this.levelGenerator.next()
+        this.levelGenerator.currentLevel.start()
+      }
+    )
 
-    this.board = this.levelGenerator.currentLevel.options.board
-    this.board.boardGroup.setAlpha(0)
+    this.board = this.levelGenerator.currentLevel.options.board;
+    this.board.boardGroup.setAlpha(0);
     background.setPosition(
       this.game.canvas.width / 2,
       this.game.canvas.height / 2

@@ -43,7 +43,7 @@ export class GravityMachine {
       state => state.game.isDead,
       isDead => {
         if (isDead) {
-          this.stop();
+          this.pause();
         } else {
           this.resume();
         }
@@ -55,7 +55,12 @@ export class GravityMachine {
     this.timer.paused = false;
   }
 
-  stop() {
+  pause() {
     this.timer.paused = true;
+  }
+
+  destroy() {
+    this.pause()
+    this.timer.destroy()
   }
 }

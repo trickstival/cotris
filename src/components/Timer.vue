@@ -11,7 +11,7 @@ const date = new Date();
 
 export default {
   computed: {
-    ...mapState("game", ["seconds"]),
+    ...mapState("score", ["seconds"]),
     formattedTime() {
       date.setMinutes(0);
       date.setSeconds(this.seconds);

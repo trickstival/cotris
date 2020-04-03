@@ -17,8 +17,10 @@ interface DrawTetraminoOptions {
 export class Board {
   scene: Scene;
   private boardBlocks: BoardBlock[] = [];
-  private boardContainer: Phaser.GameObjects.Container
-  public boardGroup: Phaser.GameObjects.Group
+  private boardContainer: Phaser.GameObjects.Container;
+  private background: Phaser.GameObjects.Rectangle
+  private unwatchers: Function[] = []
+  public boardGroup: Phaser.GameObjects.Group;
 
   constructor(public options: BoardOptions) {
     this.scene = options.scene;
@@ -29,7 +31,7 @@ export class Board {
   }
 
   private addBackground() {
-    this.scene.add.rectangle(0, 0);
+    this.background = this.scene.add.rectangle(0, 0);
   }
 
   private drawBoard() {
@@ -57,30 +59,30 @@ export class Board {
         this.boardBlocks.push(boardBlock);
       }
     }
-    this.boardContainer = this.scene.add.container(0, 0, this.boardBlocks)
-    this.boardGroup = this.scene
-      .add
-      .group(this.boardBlocks)
+    this.boardContainer = this.scene.add.container(0, 0, this.boardBlocks);
+    this.boardGroup = this.scene.add.group(this.boardBlocks);
   }
 
   private setupStoreWatchers() {
-    store.watch(
-      state => state.game.currentXSelection,
-      (_, oldX) => {
-        const currentTetramino: Tetramino = store.state.game.currentTetramino;
-        this.clearTetramino(currentTetramino, { x: oldX });
-        this.drawTetramino(currentTetramino);
-      }
-    );
-
-    store.watch(
-      state => state.game.currentYSelection,
-      (y, oldY) => {
-        const currentTetramino: Tetramino = store.state.game.currentTetramino;
-        this.clearTetramino(currentTetramino, { y: y > oldY ? oldY : y });
-        this.drawTetramino(currentTetramino);
-      }
-    );
+    this.unwatchers.push(
+      store.watch(
+        state => state.game.currentXSelection,
+        (_, oldX) => {
+          const currentTetramino: Tetramino = store.state.game.currentTetramino;
+          this.clearTetramino(currentTetramino, { x: oldX });
+          this.drawTetramino(currentTetramino);
+        }
+      ),
+  
+      store.watch(
+        state => state.game.currentYSelection,
+        (y, oldY) => {
+          const currentTetramino: Tetramino = store.state.game.currentTetramino;
+          this.clearTetramino(currentTetramino, { y: y > oldY ? oldY : y });
+          this.drawTetramino(currentTetramino);
+        }
+      )
+    )
   }
 
   conflicts(tetramino: Tetramino, { x, y }: { x: number; y: number }) {
@@ -128,6 +130,15 @@ export class Board {
       if (!block.isFilled) {
         block.fillWith(color);
       }
+    }
+  }
+
+  destroy () {
+    this.boardGroup.destroy()
+    this.boardContainer.destroy()
+    this.background.destroy()
+    for (const unwatcher of this.unwatchers) {
+      unwatcher()
     }
   }
 }

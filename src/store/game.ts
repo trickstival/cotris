@@ -13,7 +13,6 @@ export const gameState = () => ({
   board: (null as unknown) as Board,
   isDead: false,
   hasStarted: false,
-  seconds: 0
 });
 
 export const game: Module<
@@ -23,9 +22,6 @@ export const game: Module<
   namespaced: true,
   state: gameState,
   mutations: {
-    newSecond(state) {
-      state.seconds++;
-    },
     moveX(state, squares: 1 | -1) {
       if (state.isDead) {
         return;
@@ -40,18 +36,19 @@ export const game: Module<
     },
     start(state) {
       state.hasStarted = true;
-      state.board.boardGroup.setAlpha(1)
+      state.board.boardGroup.setAlpha(1);
     },
     restart(state) {
       const initialTetramino = Tetramino.getRandomTetramino();
-      state.seconds = 0;
       state.currentXSelection = Math.round(
         state.board.options.numberOfBlocks[0] / 2
       );
       state.currentYSelection = -initialTetramino.getLowestY();
+      state.currentTetramino = initialTetramino
       state.nextTetramino = Tetramino.getRandomTetramino();
       state.board.clear();
-      state.board.boardGroup.setAlpha(1)
+      state.board.drawTetramino(state.currentTetramino)
+      state.board.boardGroup.setAlpha(1);
       state.isDead = false;
     },
     die(state) {
@@ -59,9 +56,9 @@ export const game: Module<
     }
   },
   actions: {
-    restart ({ commit }) {
-      commit('restart')
-      commit('score/resetScore', null, { root: true })
+    resurrect({ dispatch, commit }) {
+      commit("restart");
+      dispatch('score/resurrect', null, { root: true })
     },
     getNextTetramino({ state, commit }) {
       const [boardWidth] = state.board.options.numberOfBlocks;
@@ -76,7 +73,9 @@ export const game: Module<
       }
 
       const nextY = -state.nextTetramino.getLowestY();
-      commit('score/increaseScore', state.currentTetramino.currentPose.length, { root: true })
+      commit("score/increaseScore", state.currentTetramino.currentPose.length, {
+        root: true
+      });
       if (
         state.board.conflicts(state.nextTetramino, {
           x: state.currentXSelection,

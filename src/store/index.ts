@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { game, gameState } from "./game";
-import { score, scoreState } from './score'
+import { score, scoreState } from "./score";
 
 Vue.use(Vuex);
 
