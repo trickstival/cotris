@@ -85,9 +85,17 @@ export class Board {
     );
   }
 
-  conflicts(tetramino: Tetramino, { x, y }: { x: number; y: number }) {
-    for (const [relativeX, relativeY] of tetramino.currentPose) {
-      if (this.getBlock(x + relativeX, y + relativeY).isFilled) {
+  collides(tetramino: Tetramino, { x, y }: { x: number; y: number }) {
+    debugger
+    const { currentPose } = tetramino
+    for (const position of currentPose.positions) {
+      const [relativeX, relativeY] = position
+      // If there is any block of this tetramino beneath this block, don't test collision
+      if (currentPose.positions.some(([posX, posY]) => posX === relativeX && posY > relativeY)) {
+        continue
+      }
+      const boardBlock = this.getBlock(x + relativeX, y + relativeY)
+      if (!boardBlock || boardBlock.collides || (boardBlock.isFilled && currentPose.collides(position))) {
         return true;
       }
     }
@@ -111,7 +119,7 @@ export class Board {
       y = store.state.game.currentYSelection
     } = options || {};
 
-    for (const [relativeX, relativeY] of tetramino.currentPose) {
+    for (const [relativeX, relativeY] of tetramino.currentPose.positions) {
       const newX = x + relativeX;
       const newY = relativeY + y;
       this.getBlock(newX, newY)?.clearBlock();
@@ -122,15 +130,16 @@ export class Board {
     const { color = 0x8a6536, solidBlockColor = 0x4f391d } = options || {};
     const x = store.state.game.currentXSelection;
     const y = store.state.game.currentYSelection;
-    const highestY = tetramino.getHighestY();
 
-    for (const [relativeX, relativeY] of tetramino.currentPose) {
+    for (const position of tetramino.currentPose.positions) {
+      const [relativeX, relativeY] = position
       const newX = x + relativeX;
       const newY = y + relativeY;
       const block = this.getBlock(newX, newY);
       if (!block.isFilled) {
-        if (relativeY === highestY && relativeX === 0) {
+        if (tetramino.currentPose.collides(position)) {
           block.fillWith(solidBlockColor);
+          block.collides = true;
         } else {
           block.fillWith(color);
         }

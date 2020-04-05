@@ -24,14 +24,10 @@ export class GravityMachine {
       loop: true,
       delay: runAtEach,
       callback: () => {
-        const currentTetramino: Tetramino = gameState.currentTetramino;
-        const highestY =
-          gameState.currentYSelection + currentTetramino.getHighestY();
-        const blockBeneath: BoardBlock = this.board.getBlock(
-          gameState.currentXSelection,
-          highestY + 1
-        );
-        if (!blockBeneath || blockBeneath.isFilled) {
+        const currentTetramino = gameState.currentTetramino;
+        if (this.board.collides(currentTetramino, { x: gameState.currentXSelection, y: gameState.currentYSelection + 1 })) {
+          debugger
+          this.board.collides(currentTetramino, { x: gameState.currentXSelection, y: gameState.currentYSelection + 1 })
           store.dispatch("game/getNextTetramino");
           return;
         }

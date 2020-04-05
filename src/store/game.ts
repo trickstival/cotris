@@ -61,6 +61,7 @@ export const game: Module<
       dispatch("score/resurrect", null, { root: true });
     },
     getNextTetramino({ state, commit }) {
+      console.log('next')
       const [boardWidth] = state.board.options.numberOfBlocks;
       const boardNumOfPositions = boardWidth - 1;
       const highestX = state.nextTetramino.getHighestX();
@@ -73,11 +74,11 @@ export const game: Module<
       }
 
       const nextY = -state.nextTetramino.getLowestY();
-      commit("score/increaseScore", state.currentTetramino.currentPose.length, {
+      commit("score/increaseScore", state.currentTetramino.currentPose.positions.length, {
         root: true
       });
       if (
-        state.board.conflicts(state.nextTetramino, {
+        state.board.collides(state.nextTetramino, {
           x: state.currentXSelection,
           y: nextY
         })

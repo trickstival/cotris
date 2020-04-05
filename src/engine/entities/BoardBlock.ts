@@ -9,6 +9,7 @@ interface BoardBlockOptions {
 
 export class BoardBlock extends Phaser.GameObjects.Graphics {
   isFilled = false;
+  collides = false;
   constructor(private options: BoardBlockOptions) {
     super(options.scene);
     this.draw();
@@ -27,6 +28,7 @@ export class BoardBlock extends Phaser.GameObjects.Graphics {
   clearBlock() {
     this.fillWith(0xffffff);
     this.isFilled = false;
+    this.collides = false;
   }
 
   fillWith(color: number) {
