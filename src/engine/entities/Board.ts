@@ -101,7 +101,7 @@ export class Board {
         if (y > gameState.currentYSelection) {
           return posX === relativeX && posY > relativeY
         }
-        return true
+        return false
       }
       // If there is any block of this tetramino beneath or more to left/right than this block, don't test collision
       if (currentPose.positions.some(existsBoundBeyond)) {
