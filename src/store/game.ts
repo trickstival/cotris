@@ -26,6 +26,9 @@ export const game: Module<
       if (state.isDead) {
         return;
       }
+      if (state.board.collides(state.currentTetramino, { x: state.currentXSelection + squares, y: state.currentYSelection })) {
+        return
+      }
       state.currentXSelection += squares;
     },
     dropY(state) {

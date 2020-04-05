@@ -88,10 +88,23 @@ export class Board {
   collides(tetramino: Tetramino, { x, y }: { x: number; y: number }) {
     debugger
     const { currentPose } = tetramino
+    const gameState = store.state.game
     for (const position of currentPose.positions) {
       const [relativeX, relativeY] = position
-      // If there is any block of this tetramino beneath this block, don't test collision
-      if (currentPose.positions.some(([posX, posY]) => posX === relativeX && posY > relativeY)) {
+      const existsBoundBeyond = ([posX, posY]: number[]) => {
+        if (x > gameState.currentXSelection) {
+          return posY === relativeY && posX > relativeX
+        }
+        if (x < gameState.currentXSelection) {
+          return posY === relativeY && posX < relativeX
+        }
+        if (y > gameState.currentYSelection) {
+          return posX === relativeX && posY > relativeY
+        }
+        return true
+      }
+      // If there is any block of this tetramino beneath or more to left/right than this block, don't test collision
+      if (currentPose.positions.some(existsBoundBeyond)) {
         continue
       }
       const boardBlock = this.getBlock(x + relativeX, y + relativeY)
