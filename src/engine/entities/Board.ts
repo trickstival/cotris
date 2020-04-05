@@ -86,7 +86,6 @@ export class Board {
   }
 
   collides(tetramino: Tetramino, { x, y }: { x: number; y: number }) {
-    debugger
     const { currentPose } = tetramino
     const gameState = store.state.game
     for (const position of currentPose.positions) {

@@ -64,7 +64,6 @@ export const game: Module<
       dispatch("score/resurrect", null, { root: true });
     },
     getNextTetramino({ state, commit }) {
-      console.log('next')
       const [boardWidth] = state.board.options.numberOfBlocks;
       const boardNumOfPositions = boardWidth - 1;
       const highestX = state.nextTetramino.getHighestX();

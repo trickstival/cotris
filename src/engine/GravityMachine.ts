@@ -26,8 +26,6 @@ export class GravityMachine {
       callback: () => {
         const currentTetramino = gameState.currentTetramino;
         if (this.board.collides(currentTetramino, { x: gameState.currentXSelection, y: gameState.currentYSelection + 1 })) {
-          debugger
-          this.board.collides(currentTetramino, { x: gameState.currentXSelection, y: gameState.currentYSelection + 1 })
           store.dispatch("game/getNextTetramino");
           return;
         }
