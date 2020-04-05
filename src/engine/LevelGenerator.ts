@@ -42,6 +42,7 @@ export class LevelGenerator {
     }
 
     const board = this.generateBoard();
+    board.drawTetramino(store.state.game.currentTetramino)
     const number = store.state.score.level;
     this.calcGoal(number);
 

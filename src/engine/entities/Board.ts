@@ -81,14 +81,6 @@ export class Board {
           this.clearTetramino(currentTetramino, { y: y > oldY ? oldY : y });
           this.drawTetramino(currentTetramino);
         }
-      ),
-
-      store.watch(
-        state => state.game.currentRotation,
-        (_, oldRotation) => {
-          const { currentTetramino } = store.state.game;
-          this.clearTetramino(currentTetramino, { rotation: oldRotation })
-        }
       )
     );
   }
@@ -137,7 +129,7 @@ export class Board {
     const {
       x = store.state.game.currentXSelection,
       y = store.state.game.currentYSelection,
-      rotation = store.state.game.currentRotation
+      rotation = tetramino.options.poses.indexOf(tetramino.currentPose.positions)
     } = options || {};
 
     for (const [relativeX, relativeY] of tetramino.options.poses[rotation]) {

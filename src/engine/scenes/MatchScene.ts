@@ -1,6 +1,5 @@
 import { Scene } from "phaser";
 import { Board } from "../entities/Board";
-import { Tetramino } from "../entities/Tetramino";
 import store from "@/store";
 import { LevelGenerator } from "../LevelGenerator";
 
@@ -83,7 +82,6 @@ export class MatchScene extends Scene {
   }
 
   private setupControls() {
-    const gameState = store.state.game;
     this.input.keyboard.on("keydown_LEFT", () => {
       store.dispatch("game/moveLeft");
     });
@@ -91,9 +89,5 @@ export class MatchScene extends Scene {
     this.input.keyboard.on("keydown_RIGHT", () => {
       store.dispatch("game/moveRight");
     });
-
-    this.input.keyboard.on("keydown_R", () => {
-      store.dispatch("game/rotate", 1)
-    })
   }
 }

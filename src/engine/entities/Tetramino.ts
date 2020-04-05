@@ -1,4 +1,5 @@
 import tetraminos from "../enums/tetraminos";
+import { getRandomInt } from '@/utils/math.utils';
 
 interface TetraminoOptions {
   poses: number[][][];
@@ -70,6 +71,8 @@ export class Tetramino {
     const tetramino = new Tetramino({
       poses: tetraminoModel.positions
     });
+
+    tetramino.setPose(getRandomInt(0, tetramino.options.poses.length - 1))
 
     this.setupRandomSolidBlocks(tetramino)
     return tetramino
