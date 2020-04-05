@@ -9,7 +9,7 @@
 
 <script>
 import { Game } from "../engine/Application";
-import PanelGui from "../components/PanelGui";
+import PanelGui from "../components/game/PanelGui";
 
 export default {
   components: {

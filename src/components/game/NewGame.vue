@@ -8,7 +8,7 @@
 
 <script>
 import HighScores from "./HighScores";
-import PlayButton from "./ui/PlayButton";
+import PlayButton from "../ui/PlayButton";
 
 export default {
   components: {
