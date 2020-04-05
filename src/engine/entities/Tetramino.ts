@@ -17,9 +17,16 @@ class TetraminoPose {
 export class Tetramino {
   currentPose: TetraminoPose;
 
-  constructor(private options: TetraminoOptions) {
+  constructor(public options: TetraminoOptions) {
+      this.setPose(0)
+  }
+
+  setPose(index: number) {
     this.currentPose = new TetraminoPose();
-    this.currentPose.positions = options.poses[0];
+    const newPose = this.options.poses[index]
+    if (newPose) {
+      this.currentPose.positions = newPose;
+    }
   }
 
   getLowestY() {

@@ -91,5 +91,9 @@ export class MatchScene extends Scene {
     this.input.keyboard.on("keydown_RIGHT", () => {
       store.dispatch("game/moveRight");
     });
+
+    this.input.keyboard.on("keydown_R", () => {
+      store.dispatch("game/rotate", 1)
+    })
   }
 }

@@ -9,6 +9,7 @@ export const gameState = () => ({
   currentXSelection: 3,
   currentYSelection: -initialTetramino.getLowestY(),
   currentTetramino: initialTetramino,
+  currentRotation: 0,
   nextTetramino: Tetramino.getRandomTetramino(),
   board: (null as unknown) as Board,
   isDead: false,
@@ -33,6 +34,9 @@ export const game: Module<
     },
     dropY(state) {
       state.currentYSelection++;
+    },
+    setCurrentRotation(state, rotation: number) {
+      state.currentRotation = rotation
     },
     setBoard(state, board: Board) {
       state.board = board;
@@ -108,6 +112,17 @@ export const game: Module<
         return;
       }
       commit("moveX", 1);
+    },
+    rotate ({ state, commit }, direction: 1 | -1) {
+      const { currentTetramino } = state
+      let newPoseIndex = state.currentRotation + direction
+      currentTetramino.setPose(newPoseIndex)
+      if (state.board.collides(currentTetramino, { x: state.currentXSelection, y: state.currentYSelection })) {
+        currentTetramino.setPose(state.currentRotation)
+        newPoseIndex = state.currentRotation
+      }
+
+      commit('setCurrentRotation', newPoseIndex)
     }
   }
 };

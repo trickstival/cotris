@@ -68,7 +68,7 @@ export class Board {
       store.watch(
         state => state.game.currentXSelection,
         (_, oldX) => {
-          const currentTetramino: Tetramino = store.state.game.currentTetramino;
+          const { currentTetramino } = store.state.game;
           this.clearTetramino(currentTetramino, { x: oldX });
           this.drawTetramino(currentTetramino);
         }
@@ -77,9 +77,17 @@ export class Board {
       store.watch(
         state => state.game.currentYSelection,
         (y, oldY) => {
-          const currentTetramino: Tetramino = store.state.game.currentTetramino;
+          const { currentTetramino } = store.state.game;
           this.clearTetramino(currentTetramino, { y: y > oldY ? oldY : y });
           this.drawTetramino(currentTetramino);
+        }
+      ),
+
+      store.watch(
+        state => state.game.currentRotation,
+        (_, oldRotation) => {
+          const { currentTetramino } = store.state.game;
+          this.clearTetramino(currentTetramino, { rotation: oldRotation })
         }
       )
     );
@@ -125,13 +133,14 @@ export class Board {
     }
   }
 
-  clearTetramino(tetramino: Tetramino, options?: { x?: number; y?: number }) {
+  clearTetramino(tetramino: Tetramino, options?: { x?: number; y?: number, rotation?: number }) {
     const {
       x = store.state.game.currentXSelection,
-      y = store.state.game.currentYSelection
+      y = store.state.game.currentYSelection,
+      rotation = store.state.game.currentRotation
     } = options || {};
 
-    for (const [relativeX, relativeY] of tetramino.currentPose.positions) {
+    for (const [relativeX, relativeY] of tetramino.options.poses[rotation]) {
       const newX = x + relativeX;
       const newY = relativeY + y;
       this.getBlock(newX, newY)?.clearBlock();
