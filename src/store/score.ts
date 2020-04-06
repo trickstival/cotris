@@ -38,7 +38,6 @@ export const score: Module<
     },
     sendScore({ rootState, state }) {
       const { currentUser } = rootState.auth;
-      debugger;
       if (!currentUser) {
         return;
       }
