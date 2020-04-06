@@ -3,7 +3,7 @@
     <h2 class="say-my-name__title rustic">
       Enter to the Highscores!
     </h2>
-    <form @submit.prevent="signIn" class="input-group">
+    <form @submit.prevent="signUp" class="input-group">
       <text-view
         v-model="auth.name"
         placeholder="Name"
@@ -57,7 +57,7 @@ export default {
     };
   },
   methods: {
-    signIn() {
+    signUp() {
       const { email, password, name } = this.auth;
       auth
         .createUserWithEmailAndPassword(email, password)

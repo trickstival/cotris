@@ -3,7 +3,10 @@
     <router-link :to="{ name: 'tutorial' }">
       Tutorial
     </router-link>
-    <router-link :to="{ name: 'signin' }">
+    <a @click.prevent="signout" v-if="currentUser" href="#">
+      Sign out
+    </a>
+    <router-link v-else :to="{ name: 'signin' }">
       Sign in
     </router-link>
     <router-link :to="{ name: 'game' }">
@@ -13,7 +16,19 @@
 </template>
 
 <script>
-export default {};
+import { mapState } from "vuex";
+import { auth } from "@/plugins/firebase.plugin";
+
+export default {
+  computed: {
+    ...mapState("auth", ["currentUser"])
+  },
+  methods: {
+    signout() {
+      auth.signOut();
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

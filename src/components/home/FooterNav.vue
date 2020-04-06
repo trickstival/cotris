@@ -3,8 +3,9 @@
     <router-link :to="{ name: 'home' }">
       Home
     </router-link>
-    <router-link :to="{ name: 'signin' }">
-      Sign in
+    <div v-if="currentUser">Welcome {{ currentUser.displayName }}</div>
+    <router-link v-else :to="{ name: isSignin ? 'signup' : 'signin' }">
+      {{ isSignin ? "Sign up" : "Sign in" }}
     </router-link>
     <router-link :to="{ name: 'game' }">
       Game
@@ -13,7 +14,16 @@
 </template>
 
 <script>
-export default {};
+import { mapState } from "vuex";
+
+export default {
+  computed: {
+    isSignin() {
+      return this.$route.name === "signin";
+    },
+    ...mapState("auth", ["currentUser"])
+  }
+};
 </script>
 
 <style lang="scss" scoped>

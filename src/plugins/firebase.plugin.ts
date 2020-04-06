@@ -21,9 +21,7 @@ export const db = firebaseApp.firestore();
 export const auth = firebaseApp.auth();
 
 auth.onAuthStateChanged(user => {
-  if (user) {
-    store.commit("auth/setCurrentUser", user);
-  }
+  store.commit("auth/setCurrentUser", user);
 });
 
 firebase.analytics();
