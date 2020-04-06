@@ -1,6 +1,6 @@
 <template>
   <section class="say-my-name">
-    <h2 class="say-my-name__title">
+    <h2 class="say-my-name__title rustic">
       Enter to the Highscores!
     </h2>
     <form @submit.prevent="signIn" class="input-group">
@@ -77,8 +77,6 @@ a {
 }
 .say-my-name__title {
   font-size: 40px;
-  font-family: TheRustic;
-  text-transform: uppercase;
   letter-spacing: 2px;
   padding: 0;
 }

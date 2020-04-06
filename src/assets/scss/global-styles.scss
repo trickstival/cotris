@@ -7,16 +7,45 @@
     src: url("../fonts/AmericanCaptain.ttf");
 }
 
+.rustic {
+    font-family: TheRustic;
+    text-transform: uppercase;
+}
+
 .text-left {
     text-align: left;
+}
+
+.full-width {
+    width: 100%;
 }
 
 .d-flex {
     display: flex;
 }
 
+.align-items-end {
+    align-items: flex-end;
+}
+
+.justify-content-end {
+    justify-content: flex-end;
+}
+
+.justify-content-space-between {
+    justify-content: space-between;
+}
+
+.justify-content-space-around {
+    justify-content: space-around;
+}
+
 .full-center {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.flex-column {
+    flex-direction: column;
 }

@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer-nav">
+  <footer class="footer-nav rustic">
     <router-link :to="{ name: 'home' }">
       Home
     </router-link>
@@ -22,8 +22,6 @@ export default {};
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  font-family: TheRustic;
-  text-transform: uppercase;
   &,
   & a {
     color: #3c2c17;

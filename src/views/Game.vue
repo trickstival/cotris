@@ -1,6 +1,6 @@
 <template>
   <div class="game">
-    <div class="game-gui-container">
+    <div class="game-gui-container rustic">
       <div ref="canvasContainer"></div>
       <panel-gui></panel-gui>
     </div>
@@ -27,8 +27,6 @@ export default {
 .game-gui-container {
   position: relative;
   width: 100%;
-  font-family: TheRustic;
-  text-transform: uppercase;
 }
 .game {
   position: absolute;

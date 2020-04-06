@@ -1,6 +1,6 @@
 <template>
   <page class="home">
-    <h1 class="home__title">
+    <h1 class="home__title rustic">
       <img class="home__logo" src="@/assets/cotris.svg" />
       The Cotris Game
     </h1>
@@ -23,8 +23,6 @@ export default {
 
 <style lang="scss" scoped>
 .home__title {
-  font-family: TheRustic;
-  text-transform: uppercase;
   font-size: 60px;
 }
 

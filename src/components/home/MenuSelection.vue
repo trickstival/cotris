@@ -1,5 +1,8 @@
 <template>
   <nav class="menu-selection">
+    <router-link :to="{ name: 'tutorial' }">
+      Tutorial
+    </router-link>
     <router-link :to="{ name: 'signin' }">
       Sign in
     </router-link>
@@ -16,7 +19,7 @@ export default {};
 <style lang="scss" scoped>
 .menu-selection {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   font-size: 33px;
 
@@ -42,6 +45,16 @@ export default {};
       background-color: #3c2c17;
       left: -25px;
       top: 21px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .menu-selection {
+    font-size: 23px;
+
+    & a:not(:first-child)::before {
+      top: 17px;
     }
   }
 }
