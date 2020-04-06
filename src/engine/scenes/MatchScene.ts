@@ -5,7 +5,7 @@ import { LevelGenerator } from "../LevelGenerator";
 
 export class MatchScene extends Scene {
   private board: Board;
-  private timer: Phaser.Time.TimerEvent;
+  private timer?: number;
   private levelGenerator: LevelGenerator;
   private unwatchers: Function[] = [];
   private isDestroyed = false;
@@ -36,30 +36,41 @@ export class MatchScene extends Scene {
     this.setupTimer();
   }
 
-  private setupTimer() {
-    this.timer = this.time.addEvent({
-      callback: () => {
-        store.commit("score/newSecond");
-      },
-      loop: true,
-      delay: 1000,
-      paused: true
-    });
+  private setupInterval() {
+    if (this.timer) {
+      return;
+    }
+    this.timer = setInterval(() => {
+      store.commit("score/newSecond");
+    }, 1000);
+  }
 
+  private clearInterval() {
+    clearInterval(this.timer);
+    this.timer = undefined;
+  }
+
+  private setupTimer() {
     this.unwatchers.push(
       store.watch(
         state => state.game.hasStarted,
         hasStarted => {
-          this.timer.paused = !hasStarted;
           if (!hasStarted) {
+            this.clearInterval();
             this.board.boardGroup.setAlpha(0);
+          } else {
+            this.setupInterval();
           }
         }
       ),
       store.watch(
         state => state.game.isDead,
         isDead => {
-          this.timer.paused = isDead && !store.state.game.hasStarted;
+          if (isDead) {
+            this.clearInterval();
+          } else if (store.state.game.hasStarted) {
+            this.setupInterval();
+          }
         }
       )
     );
@@ -113,7 +124,7 @@ export class MatchScene extends Scene {
   public destroy() {
     this.unwatchAll();
     this.input.keyboard.removeAllListeners();
-    this.timer && this.timer.destroy();
+    this.clearInterval();
     this.board && this.board.destroy();
     this.levelGenerator && this.levelGenerator.destroy();
     this.isDestroyed = true;
