@@ -64,9 +64,13 @@ export const game: Module<
     }
   },
   actions: {
-    resurrect({ dispatch, commit }) {
+    resurrect({ dispatch, state, commit }) {
       commit("restart");
       dispatch("score/resurrect", null, { root: true });
+    },
+    unstart({ state, dispatch }) {
+      state.hasStarted = false;
+      state.isDead = true;
     },
     getNextTetramino({ state, commit, dispatch }) {
       const [boardWidth] = state.board.options.numberOfBlocks;

@@ -46,16 +46,20 @@ export class MatchScene extends Scene {
       paused: true
     });
 
-    const startTimer = () => {
-      this.timer.paused = false;
-    };
-
     this.unwatchers.push(
-      store.watch(state => state.game.hasStarted, startTimer),
+      store.watch(
+        state => state.game.hasStarted,
+        hasStarted => {
+          this.timer.paused = !hasStarted;
+          if (!hasStarted) {
+            this.board.boardGroup.setAlpha(0);
+          }
+        }
+      ),
       store.watch(
         state => state.game.isDead,
         isDead => {
-          this.timer.paused = isDead;
+          this.timer.paused = isDead && !store.state.game.hasStarted;
         }
       )
     );
@@ -76,6 +80,7 @@ export class MatchScene extends Scene {
         state => state.score.level,
         () => {
           this.levelGenerator.next();
+          this.board = this.levelGenerator.currentLevel.options.board;
           this.levelGenerator.currentLevel.start();
         }
       )
@@ -107,6 +112,7 @@ export class MatchScene extends Scene {
 
   public destroy() {
     this.unwatchAll();
+    this.input.keyboard.removeAllListeners();
     this.timer && this.timer.destroy();
     this.board && this.board.destroy();
     this.levelGenerator && this.levelGenerator.destroy();

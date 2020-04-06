@@ -5,7 +5,7 @@
       <timer />
       <score />
     </template>
-    <game-over v-if="isDead" class="game-over"></game-over>
+    <game-over v-if="isDead && hasStarted" class="game-over"></game-over>
   </div>
 </template>
 

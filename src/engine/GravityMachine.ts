@@ -21,6 +21,7 @@ export class GravityMachine {
 
   start() {
     const { runAtEach } = this.options;
+    this.destroy();
     this.timer = this.board.scene.time.addEvent({
       loop: true,
       delay: runAtEach,
@@ -45,7 +46,7 @@ export class GravityMachine {
         isDead => {
           if (isDead) {
             this.pause();
-          } else {
+          } else if (store.state.game.hasStarted) {
             this.resume();
           }
         }

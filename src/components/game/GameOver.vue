@@ -1,13 +1,21 @@
 <template>
-  <section class="game-over">
+  <section class="game-over full-center flex-column">
     <h1 class="title">
       Game Over!
     </h1>
+    <btn @click="$store.dispatch('game/unstart')">
+      Return to main menu
+    </btn>
   </section>
 </template>
 
 <script>
-export default {};
+import Btn from "@/components/ui/Btn";
+export default {
+  components: {
+    Btn
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -16,9 +24,6 @@ export default {};
   padding: 10px;
   width: 600px;
   height: 600px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
 }
 
