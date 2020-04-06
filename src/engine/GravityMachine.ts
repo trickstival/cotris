@@ -17,6 +17,7 @@ export class GravityMachine {
   }
 
   private timer: Phaser.Time.TimerEvent;
+  private unwatchers: Function[] = [];
 
   start() {
     const { runAtEach } = this.options;
@@ -38,28 +39,38 @@ export class GravityMachine {
       }
     });
 
-    store.watch(
-      state => state.game.isDead,
-      isDead => {
-        if (isDead) {
-          this.pause();
-        } else {
-          this.resume();
+    this.unwatchers.push(
+      store.watch(
+        state => state.game.isDead,
+        isDead => {
+          if (isDead) {
+            this.pause();
+          } else {
+            this.resume();
+          }
         }
-      }
+      )
     );
   }
 
   resume() {
-    this.timer.paused = false;
+    if (this.timer) {
+      this.timer.paused = false;
+    }
   }
 
   pause() {
-    this.timer.paused = true;
+    if (this.timer) {
+      this.timer.paused = true;
+    }
   }
 
   destroy() {
+    for (const unwatch of this.unwatchers) {
+      unwatch();
+    }
     this.pause();
-    this.timer.destroy();
+    this.timer && this.timer.destroy();
+    this.board.scene.time.removeAllEvents();
   }
 }

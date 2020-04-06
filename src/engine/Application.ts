@@ -5,10 +5,14 @@ interface GameOptions {
   el: HTMLElement;
 }
 
-export class Game extends PhaserGame {
+export class Application {
+  public matchScene: MatchScene;
+  public game: PhaserGame;
   constructor(options: GameOptions) {
-    super({
-      scene: [new MatchScene()],
+    this.matchScene = new MatchScene();
+
+    this.game = new PhaserGame({
+      scene: [this.matchScene],
       scale: {
         parent: options.el,
         height: "100%",
@@ -19,6 +23,6 @@ export class Game extends PhaserGame {
   }
 
   destroy() {
-    super.destroy(false);
+    this.game.destroy(false);
   }
 }

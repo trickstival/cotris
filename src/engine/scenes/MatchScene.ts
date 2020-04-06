@@ -7,6 +7,7 @@ export class MatchScene extends Scene {
   private board: Board;
   private timer: Phaser.Time.TimerEvent;
   private levelGenerator: LevelGenerator;
+  private unwatchers: Function[] = [];
 
   constructor() {
     super({
@@ -45,13 +46,14 @@ export class MatchScene extends Scene {
       this.timer.paused = false;
     };
 
-    store.watch(state => state.game.hasStarted, startTimer);
-
-    store.watch(
-      state => state.game.isDead,
-      isDead => {
-        this.timer.paused = isDead;
-      }
+    this.unwatchers.push(
+      store.watch(state => state.game.hasStarted, startTimer),
+      store.watch(
+        state => state.game.isDead,
+        isDead => {
+          this.timer.paused = isDead;
+        }
+      )
     );
   }
 
@@ -65,12 +67,14 @@ export class MatchScene extends Scene {
     });
 
     this.levelGenerator.next();
-    store.watch(
-      state => state.score.level,
-      () => {
-        this.levelGenerator.next();
-        this.levelGenerator.currentLevel.start();
-      }
+    this.unwatchers.push(
+      store.watch(
+        state => state.score.level,
+        () => {
+          this.levelGenerator.next();
+          this.levelGenerator.currentLevel.start();
+        }
+      )
     );
 
     this.board = this.levelGenerator.currentLevel.options.board;
@@ -89,5 +93,18 @@ export class MatchScene extends Scene {
     this.input.keyboard.on("keydown_RIGHT", () => {
       store.dispatch("game/moveRight");
     });
+  }
+
+  private unwatchAll() {
+    for (const unwatcher of this.unwatchers) {
+      unwatcher();
+    }
+  }
+
+  public destroy() {
+    this.unwatchAll();
+    this.timer.destroy();
+    this.board.destroy();
+    this.levelGenerator.destroy();
   }
 }

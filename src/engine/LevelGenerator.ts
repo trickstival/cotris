@@ -52,4 +52,8 @@ export class LevelGenerator {
       number
     });
   }
+
+  destroy() {
+    this.currentLevel.destroy();
+  }
 }

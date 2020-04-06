@@ -7,20 +7,31 @@
   </div>
 </template>
 
-<script>
-import { Game } from "../engine/Application";
-import PanelGui from "../components/game/PanelGui";
+<script lang="ts">
+import Vue from "vue";
+import { Application } from "../engine/Application";
+import PanelGui from "../components/game/PanelGui.vue";
+import { MatchScene } from "../engine/scenes/MatchScene";
 
-export default {
+export default Vue.extend({
   components: {
     PanelGui
   },
+  data() {
+    return {
+      application: (null as unknown) as Application
+    };
+  },
+  beforeDestroy() {
+    const { matchScene } = this.application;
+    matchScene.destroy();
+  },
   mounted() {
-    new Game({
-      el: this.$refs.canvasContainer
+    this.application = new Application({
+      el: this.$refs.canvasContainer as HTMLCanvasElement
     });
   }
-};
+});
 </script>
 
 <style lang="scss" scoped>
