@@ -23,7 +23,6 @@ export function caches() {
       const val = originalFunc.apply(this, args);
       // @ts-ignore
       cache.set(propertyKey, val);
-      console.log(val)
       return val;
     };
   };
