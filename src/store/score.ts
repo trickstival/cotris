@@ -36,18 +36,23 @@ export const score: Module<
       commit("game/restart", null, { root: true });
       state.level++;
     },
-    sendScore({ rootState, state }) {
+    async sendScore({ rootState, state }) {
       const { currentUser } = rootState.auth;
       if (!currentUser) {
         return;
       }
 
-      db.collection("scores")
-        .doc(currentUser.uid)
-        .set({
-          name: currentUser.displayName || currentUser.uid,
-          score: state.score
-        });
+      const userScore = db.collection("scores").doc(currentUser.uid);
+
+      const currentScore = (await userScore.get()).data()?.score;
+      if (currentScore && currentScore >= state.score) {
+        return;
+      }
+
+      userScore.set({
+        name: currentUser.displayName || currentUser.uid,
+        score: state.score
+      });
     },
     resurrect({ commit, state }) {
       commit("resetScore");
