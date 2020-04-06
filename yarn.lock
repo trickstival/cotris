@@ -1440,6 +1440,11 @@
   resolved "https://registry.yarnpkg.com/@types/strip-json-comments/-/strip-json-comments-0.0.30.tgz#9aa30c04db212a9a0649d6ae6fd50accc40748a1"
   integrity sha512-7NQmHra/JILCd1QqpSzl8+mJRc8ZHz3uDm8YV1Ks9IhK0epEiTw8aIErbvH9PI+6XbqhyIQy3462nEsn7UVzjQ==
 
+"@types/swiper@^5.2.1":
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/@types/swiper/-/swiper-5.2.1.tgz#889ab9c9041007c27ffa3220097303b6b1670608"
+  integrity sha512-O8Xm3xNbDH7BS1HQqu8xSfqAfLCHsu+D4r7X1k+kuqZ5sEPGAmaoPRzF/P+W1v5lJ58W1UmfsFo38+0A7xE5qg==
+
 "@types/webpack-env@^1.15.1":
   version "1.15.1"
   resolved "https://registry.yarnpkg.com/@types/webpack-env/-/webpack-env-1.15.1.tgz#c8e84705e08eed430b5e15b39c65b0944e4d1422"
