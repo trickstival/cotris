@@ -5,15 +5,17 @@
     </h4>
     <div class="high-scores__panel">
       <div
-        v-for="[player, score] in highscores"
-        :key="player + score"
+        v-for="(player, idx) in highscores.length
+          ? [...highscores].reverse()
+          : highscoresPlaceholder"
+        :key="idx"
         class="high-scores__row"
       >
         <div>
-          {{ player }}
+          {{ player.name }}
         </div>
         <div>
-          {{ score }}
+          {{ player.score }}
         </div>
       </div>
     </div>
@@ -21,17 +23,19 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   data() {
     return {
-      highscores: [
-        ["Joel", 29846],
-        ["Anna", 25458],
-        ["Tom", 18475],
-        ["Oli", 13784],
-        ["Elena", 10125]
-      ]
+      highscoresPlaceholder: Array(5).fill({ name: "...", score: "..." })
     };
+  },
+  computed: {
+    ...mapState("score", ["highscores"])
+  },
+  created() {
+    this.$store.dispatch("score/bindHighscoresRef");
   }
 };
 </script>

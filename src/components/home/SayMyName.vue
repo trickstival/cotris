@@ -5,8 +5,7 @@
     </h2>
     <form @submit.prevent="signIn" class="input-group">
       <text-view
-        v-model="auth.email"
-        type="email"
+        v-model="auth.name"
         placeholder="Name"
         class="text-view"
         required
@@ -51,17 +50,28 @@ export default {
     return {
       auth: {
         email: "",
-        password: ""
+        password: "",
+        name: ""
       },
       errorMessage: ""
     };
   },
   methods: {
     signIn() {
-      const { email, password } = this.auth;
-      auth.createUserWithEmailAndPassword(email, password).catch(error => {
-        this.errorMessage = error;
-      });
+      const { email, password, name } = this.auth;
+      auth
+        .createUserWithEmailAndPassword(email, password)
+        .then(({ user }) => {
+          return user.updateProfile({
+            displayName: name
+          });
+        })
+        .then(() => {
+          this.$router.push({ name: "game" });
+        })
+        .catch(error => {
+          this.errorMessage = error;
+        });
     }
   }
 };

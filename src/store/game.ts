@@ -68,7 +68,7 @@ export const game: Module<
       commit("restart");
       dispatch("score/resurrect", null, { root: true });
     },
-    getNextTetramino({ state, commit }) {
+    getNextTetramino({ state, commit, dispatch }) {
       const [boardWidth] = state.board.options.numberOfBlocks;
       const boardNumOfPositions = boardWidth - 1;
       const highestX = state.nextTetramino.getHighestX();
@@ -95,6 +95,7 @@ export const game: Module<
         })
       ) {
         commit("die");
+        dispatch("score/sendScore", null, { root: true })
         return;
       }
 
