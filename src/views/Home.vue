@@ -5,6 +5,10 @@
       The Cotris Game
     </h1>
     <menu-selection class="home__menu-selection" />
+    <footer class="home__footer">
+      Made by
+      <a target="_blank" href="https://github.com/trickstival">trickstival</a>
+    </footer>
   </page>
 </template>
 
@@ -24,6 +28,11 @@ export default {
 <style lang="scss" scoped>
 .home__title {
   font-size: 60px;
+}
+
+.home__footer {
+  position: absolute;
+  bottom: 10px;
 }
 
 .home__menu-selection {

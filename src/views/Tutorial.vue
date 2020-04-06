@@ -14,7 +14,10 @@
           </div>
         </swiper-slide>
         <swiper-slide class="full-center flex-column">
-          <fuse />
+          <merge />
+        </swiper-slide>
+        <swiper-slide class="full-center">
+          <score-step />
         </swiper-slide>
       </swiper>
     </main>
@@ -26,7 +29,8 @@
 import Page from "@/components/home/Page";
 import FooterNav from "@/components/home/FooterNav";
 import BlocksExplanation from "@/components/tutorial/BlocksExplanation";
-import Fuse from "@/components/tutorial/Fuse";
+import Merge from "@/components/tutorial/Merge";
+import ScoreStep from "@/components/tutorial/ScoreStep";
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 import "swiper/css/swiper.css";
 
@@ -37,7 +41,8 @@ export default {
     BlocksExplanation,
     Swiper,
     SwiperSlide,
-    Fuse
+    Merge,
+    ScoreStep
   },
   data() {
     return {

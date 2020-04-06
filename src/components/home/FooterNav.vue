@@ -6,6 +6,9 @@
     <router-link :to="{ name: 'signin' }">
       Sign in
     </router-link>
+    <router-link :to="{ name: 'game' }">
+      Game
+    </router-link>
   </footer>
 </template>
 
@@ -21,7 +24,7 @@ export default {};
   left: 0;
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   &,
   & a {
     color: #3c2c17;

@@ -1,5 +1,5 @@
 <template>
-  <div class="fuse full-center flex-column">
+  <div class="merge full-center flex-column">
     <div class="description">
       Filled blocks can be merged, while collision blocks can't
     </div>
