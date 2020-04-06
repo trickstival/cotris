@@ -22,6 +22,8 @@
         <swiper-slide class="full-center slide">
           <goal-step />
         </swiper-slide>
+        <div class="swiper-button-prev" slot="button-prev"></div>
+        <div class="swiper-button-next" slot="button-next"></div>
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
     </main>
@@ -55,6 +57,10 @@ export default {
       swiperOptions: {
         pagination: {
           el: ".swiper-pagination"
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev"
         }
       }
     };
