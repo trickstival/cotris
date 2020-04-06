@@ -1,5 +1,6 @@
 import tetraminos from "../enums/tetraminos";
 import { getRandomInt } from "@/utils/math.utils";
+import { caches } from "@/utils/cache.utils";
 
 interface TetraminoOptions {
   poses: number[][][];
@@ -19,6 +20,7 @@ class TetraminoPose {
 
 export class Tetramino {
   currentPose: TetraminoPose;
+  private cache = new Map();
 
   constructor(public options: TetraminoOptions) {
     this.setPose(0);
@@ -32,13 +34,19 @@ export class Tetramino {
     }
   }
 
+  @caches()
   getLowestY() {
+    const lowestX = this.cache.get("lowestX");
+    if (lowestX) {
+      return lowestX;
+    }
     return this.currentPose.positions.reduce(
       (acc, [, relativeY]) => (acc < relativeY ? acc : relativeY),
       0
     );
   }
 
+  @caches()
   getHighestY() {
     return this.currentPose.positions.reduce(
       (acc, [, relativeY]) => (acc > relativeY ? acc : relativeY),
@@ -46,6 +54,7 @@ export class Tetramino {
     );
   }
 
+  @caches()
   getLowestX() {
     return this.currentPose.positions.reduce(
       (acc, [relativeX]) => (acc < relativeX ? acc : relativeX),
@@ -53,6 +62,7 @@ export class Tetramino {
     );
   }
 
+  @caches()
   getHighestX() {
     return this.currentPose.positions.reduce(
       (acc, [relativeX]) => (acc > relativeX ? acc : relativeX),
