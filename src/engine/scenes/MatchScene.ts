@@ -8,6 +8,7 @@ export class MatchScene extends Scene {
   private timer: Phaser.Time.TimerEvent;
   private levelGenerator: LevelGenerator;
   private unwatchers: Function[] = [];
+  private isDestroyed = false;
 
   constructor() {
     super({
@@ -25,6 +26,9 @@ export class MatchScene extends Scene {
   }
 
   create() {
+    if (this.isDestroyed) {
+      return;
+    }
     this.setupBoard();
     // @ts-ignore
     this.board.drawTetramino(store.state.game.currentTetramino);
@@ -103,8 +107,9 @@ export class MatchScene extends Scene {
 
   public destroy() {
     this.unwatchAll();
-    this.timer.destroy();
-    this.board.destroy();
-    this.levelGenerator.destroy();
+    this.timer && this.timer.destroy();
+    this.board && this.board.destroy();
+    this.levelGenerator && this.levelGenerator.destroy();
+    this.isDestroyed = true;
   }
 }
