@@ -3,7 +3,7 @@ import "firebase/firestore";
 import "firebase/auth";
 import "firebase/analytics";
 import router from "@/router";
-import store from '@/store'
+import store from "@/store";
 
 // TODO: move to .env
 export const firebaseApp = firebase.initializeApp({
@@ -22,7 +22,7 @@ export const auth = firebaseApp.auth();
 
 auth.onAuthStateChanged(user => {
   if (user) {
-    store.commit('auth/setCurrentUser', user)
+    store.commit("auth/setCurrentUser", user);
   }
 });
 

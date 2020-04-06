@@ -2,8 +2,8 @@ import Vue from "vue";
 import Vuex from "vuex";
 import { game, gameState } from "./game";
 import { score, scoreState } from "./score";
-import { auth, authState } from './auth'
-import { vuexfireMutations } from 'vuexfire'
+import { auth, authState } from "./auth";
+import { vuexfireMutations } from "vuexfire";
 
 Vue.use(Vuex);
 

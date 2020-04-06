@@ -1,7 +1,7 @@
 import { Module } from "vuex";
 import { rootState } from ".";
-import { firestoreAction } from 'vuexfire'
-import { db } from '@/plugins/firebase.plugin'
+import { firestoreAction } from "vuexfire";
+import { db } from "@/plugins/firebase.plugin";
 
 export const scoreState = () => ({
   score: 0,
@@ -29,7 +29,7 @@ export const score: Module<
     },
     setGoal(state, goal: number) {
       state.goal = goal;
-    },
+    }
   },
   actions: {
     nextLevel({ state, commit }) {
@@ -37,16 +37,18 @@ export const score: Module<
       state.level++;
     },
     sendScore({ rootState, state }) {
-      const { currentUser } = rootState.auth
-      debugger
+      const { currentUser } = rootState.auth;
+      debugger;
       if (!currentUser) {
-        return
+        return;
       }
 
-      db.collection('scores').doc(currentUser.uid).set({
-        name: currentUser.displayName || currentUser.uid,
-        score: state.score
-      })
+      db.collection("scores")
+        .doc(currentUser.uid)
+        .set({
+          name: currentUser.displayName || currentUser.uid,
+          score: state.score
+        });
     },
     resurrect({ commit, state }) {
       commit("resetScore");
@@ -54,7 +56,13 @@ export const score: Module<
       state.seconds = 0;
     },
     bindHighscoresRef: firestoreAction(context => {
-      return context.bindFirestoreRef('highscores', db.collection('scores').orderBy('score').limitToLast(5))
+      return context.bindFirestoreRef(
+        "highscores",
+        db
+          .collection("scores")
+          .orderBy("score")
+          .limitToLast(5)
+      );
     })
   }
 };

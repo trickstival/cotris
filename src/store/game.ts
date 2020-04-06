@@ -95,7 +95,7 @@ export const game: Module<
         })
       ) {
         commit("die");
-        dispatch("score/sendScore", null, { root: true })
+        dispatch("score/sendScore", null, { root: true });
         return;
       }
 
