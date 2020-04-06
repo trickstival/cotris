@@ -42,6 +42,12 @@ export default {
   margin-top: 25px;
 }
 
+@media screen and(max-height: 513px) {
+  .high-scores {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .new-game {
     height: 100%;

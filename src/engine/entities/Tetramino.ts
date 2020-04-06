@@ -72,7 +72,7 @@ export class Tetramino {
 
   private static setupRandomSolidBlocks(tetramino: Tetramino) {
     for (const piece of tetramino.currentPose.positions) {
-      if (Math.random() < 0.5) {
+      if (Math.random() < 0.35) {
         tetramino.currentPose.solidBlocks.push(piece);
       }
     }

@@ -28,7 +28,7 @@ export class LevelGenerator {
   }
 
   private calcGoal(levelNumber: number) {
-    const goal = 20 * levelNumber + getRandomInt(0, 9);
+    const goal = 30 * levelNumber + getRandomInt(0, 9);
     store.commit("score/setGoal", goal);
   }
 
