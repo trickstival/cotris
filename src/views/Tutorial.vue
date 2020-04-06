@@ -19,6 +19,9 @@
         <swiper-slide class="full-center slide">
           <score-step />
         </swiper-slide>
+        <swiper-slide class="full-center slide">
+          <goal-step />
+        </swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
     </main>
@@ -32,6 +35,7 @@ import FooterNav from "@/components/home/FooterNav";
 import BlocksExplanation from "@/components/tutorial/BlocksExplanation";
 import Merge from "@/components/tutorial/Merge";
 import ScoreStep from "@/components/tutorial/ScoreStep";
+import GoalStep from "@/components/tutorial/GoalStep";
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 import "swiper/css/swiper.css";
 
@@ -43,7 +47,8 @@ export default {
     Swiper,
     SwiperSlide,
     Merge,
-    ScoreStep
+    ScoreStep,
+    GoalStep
   },
   data() {
     return {
