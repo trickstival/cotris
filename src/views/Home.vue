@@ -6,8 +6,18 @@
     </h1>
     <menu-selection class="home__menu-selection" />
     <footer class="home__footer">
-      Made by
-      <a target="_blank" href="https://github.com/trickstival">trickstival</a>
+      <div>
+        Made by
+        <a target="_blank" href="https://github.com/trickstival">trickstival</a>
+      </div>
+      <div>
+        Designed by
+        <a
+          href="https://www.behance.net/gallery/94426465/Vintage-Tetris-GAME-UI?fbclid=IwAR0TMIoqMYfBhOMtJafzzdWshioQpSJdpdv3gaKU4uQ4g9Q2SUTn8n3r7XM"
+        >
+          Mateus Negrão
+        </a>
+      </div>
     </footer>
   </page>
 </template>
