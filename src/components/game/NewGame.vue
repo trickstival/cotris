@@ -3,17 +3,20 @@
     <h1>The Cotris Game</h1>
     <play-button @click="play" class="play-button" />
     <high-scores class="high-scores" />
+    <footer-nav />
   </section>
 </template>
 
 <script>
 import HighScores from "./HighScores";
 import PlayButton from "../ui/PlayButton";
+import FooterNav from "../home/FooterNav";
 
 export default {
   components: {
     HighScores,
-    PlayButton
+    PlayButton,
+    FooterNav
   },
   methods: {
     play() {
@@ -25,7 +28,7 @@ export default {
 
 <style lang="scss">
 .new-game {
-  padding: 10px;
+  padding: 0 10px;
   width: 600px;
   height: 600px;
   display: flex;

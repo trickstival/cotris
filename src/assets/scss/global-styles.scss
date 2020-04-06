@@ -1,0 +1,22 @@
+@font-face {
+    font-family: TheRustic;
+    src: url("../fonts/TheRustic.ttf");
+}
+@font-face {
+    font-family: AmericanCaptain;
+    src: url("../fonts/AmericanCaptain.ttf");
+}
+
+.text-left {
+    text-align: left;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.full-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

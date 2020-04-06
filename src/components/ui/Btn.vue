@@ -1,5 +1,5 @@
 <template>
-  <button class="btn">
+  <button v-bind="$attrs" v-on="$listeners" class="btn">
     <slot />
   </button>
 </template>
@@ -13,10 +13,10 @@ export default {};
   background-color: #3c2c17;
   color: #fff;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: none;
   font-size: 20px;
   outline: none;
   cursor: pointer;
-  padding: 0 10px;
+  padding: 10px;
 }
 </style>

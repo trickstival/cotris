@@ -1,30 +1,38 @@
 <template>
-  <div class="home">
-    <say-my-name />
-  </div>
+  <page class="home">
+    <h1 class="home__title">
+      <img class="home__logo" src="@/assets/cotris.svg" />
+      The Cotris Game
+    </h1>
+    <menu-selection class="home__menu-selection" />
+  </page>
 </template>
 
 <script>
-import SayMyName from "../components/home/SayMyName";
+import Page from "@/components/home/Page";
+import MenuSelection from "@/components/home/MenuSelection";
 
 export default {
   name: "Home",
   components: {
-    SayMyName
+    Page,
+    MenuSelection
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.home {
-  position: absolute;
-  background-image: url("../../public/publicAssets/wood.jpeg");
-  background-position: center;
-  background-size: 100vw;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.home__title {
+  font-family: TheRustic;
+  text-transform: uppercase;
+  font-size: 60px;
+}
+
+.home__menu-selection {
+  margin-top: 20px;
+}
+
+.home__logo {
+  width: 60px;
 }
 </style>

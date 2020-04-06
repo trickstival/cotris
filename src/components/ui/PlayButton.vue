@@ -12,7 +12,7 @@ export default {};
 
 <style lang="scss" scoped>
 .play-button {
-  $size: 170px;
+  $size: 140px;
   width: $size;
   height: $size;
   opacity: 0.7;

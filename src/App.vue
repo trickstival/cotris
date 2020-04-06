@@ -39,6 +39,8 @@ h6 {
   color: #3c2c17;
 }
 
+@import url("./assets/scss/global-styles.scss");
+
 #nav {
   padding: 30px;
 
