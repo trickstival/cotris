@@ -86,28 +86,32 @@ export class Board {
   }
 
   collides(tetramino: Tetramino, { x, y }: { x: number; y: number }) {
-    const { currentPose } = tetramino
-    const gameState = store.state.game
+    const { currentPose } = tetramino;
+    const gameState = store.state.game;
     for (const position of currentPose.positions) {
-      const [relativeX, relativeY] = position
+      const [relativeX, relativeY] = position;
       const existsBoundBeyond = ([posX, posY]: number[]) => {
         if (x > gameState.currentXSelection) {
-          return posY === relativeY && posX > relativeX
+          return posY === relativeY && posX > relativeX;
         }
         if (x < gameState.currentXSelection) {
-          return posY === relativeY && posX < relativeX
+          return posY === relativeY && posX < relativeX;
         }
         if (y > gameState.currentYSelection) {
-          return posX === relativeX && posY > relativeY
+          return posX === relativeX && posY > relativeY;
         }
-        return false
-      }
+        return false;
+      };
       // If there is any block of this tetramino beneath or more to left/right than this block, don't test collision
       if (currentPose.positions.some(existsBoundBeyond)) {
-        continue
+        continue;
       }
-      const boardBlock = this.getBlock(x + relativeX, y + relativeY)
-      if (!boardBlock || boardBlock.collides || (boardBlock.isFilled && currentPose.collides(position))) {
+      const boardBlock = this.getBlock(x + relativeX, y + relativeY);
+      if (
+        !boardBlock ||
+        boardBlock.collides ||
+        (boardBlock.isFilled && currentPose.collides(position))
+      ) {
         return true;
       }
     }
@@ -125,11 +129,16 @@ export class Board {
     }
   }
 
-  clearTetramino(tetramino: Tetramino, options?: { x?: number; y?: number, rotation?: number }) {
+  clearTetramino(
+    tetramino: Tetramino,
+    options?: { x?: number; y?: number; rotation?: number }
+  ) {
     const {
       x = store.state.game.currentXSelection,
       y = store.state.game.currentYSelection,
-      rotation = tetramino.options.poses.indexOf(tetramino.currentPose.positions)
+      rotation = tetramino.options.poses.indexOf(
+        tetramino.currentPose.positions
+      )
     } = options || {};
 
     for (const [relativeX, relativeY] of tetramino.options.poses[rotation]) {
@@ -145,7 +154,7 @@ export class Board {
     const y = store.state.game.currentYSelection;
 
     for (const position of tetramino.currentPose.positions) {
-      const [relativeX, relativeY] = position
+      const [relativeX, relativeY] = position;
       const newX = x + relativeX;
       const newY = y + relativeY;
       const block = this.getBlock(newX, newY);

@@ -5,7 +5,7 @@
     </h1>
     <main class="tutorial__main full-center">
       <swiper :options="swiperOptions" class="swiper">
-        <swiper-slide class="full-center flex-column">
+        <swiper-slide class="full-center flex-column slide">
           Cotris is not Tetris. <br />
           This game works in a different way.
           <blocks-explanation class="blocks-explanation" />
@@ -13,12 +13,13 @@
             Swipe right to continue
           </div>
         </swiper-slide>
-        <swiper-slide class="full-center flex-column">
+        <swiper-slide class="full-center flex-column slide">
           <merge />
         </swiper-slide>
-        <swiper-slide class="full-center">
+        <swiper-slide class="full-center slide">
           <score-step />
         </swiper-slide>
+        <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
     </main>
     <footer-nav />
@@ -46,13 +47,21 @@ export default {
   },
   data() {
     return {
-      swiperOptions: {}
+      swiperOptions: {
+        pagination: {
+          el: ".swiper-pagination"
+        }
+      }
     };
   }
 };
 </script>
 
 <style lang="scss" scoped>
+.tutorial {
+  --swiper-theme-color: #3c2c17;
+}
+
 .blocks-explanation {
   margin-top: 10px;
 }
@@ -66,6 +75,9 @@ export default {
 
 .swiper {
   height: 100%;
+  & > .slide {
+    width: 100% !important;
+  }
 }
 
 .swipe-to-continue {

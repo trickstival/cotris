@@ -26,8 +26,13 @@ export const game: Module<
       if (state.isDead) {
         return;
       }
-      if (state.board.collides(state.currentTetramino, { x: state.currentXSelection + squares, y: state.currentYSelection })) {
-        return
+      if (
+        state.board.collides(state.currentTetramino, {
+          x: state.currentXSelection + squares,
+          y: state.currentYSelection
+        })
+      ) {
+        return;
       }
       state.currentXSelection += squares;
     },
@@ -76,9 +81,13 @@ export const game: Module<
       }
 
       const nextY = -state.nextTetramino.getLowestY();
-      commit("score/increaseScore", state.currentTetramino.currentPose.positions.length, {
-        root: true
-      });
+      commit(
+        "score/increaseScore",
+        state.currentTetramino.currentPose.positions.length,
+        {
+          root: true
+        }
+      );
       if (
         state.board.collides(state.nextTetramino, {
           x: state.currentXSelection,
